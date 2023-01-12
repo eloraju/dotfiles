@@ -1,13 +1,14 @@
-btop
 alacritty
 arandr
 autorandr
+bat
+btop
 docker
 docker-compose
 exa
-bat
 man-db
 pavucontrol
 picom
 ripgrep
 tealdeer
+zsh

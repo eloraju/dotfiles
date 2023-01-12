@@ -8,6 +8,14 @@ install_paru() {
   cd .. && rm -rf paru
 }
 
+install_official_pkgs() {
+  sudo pacman -S --noconfirm - < pkgs
+}
+
+install_official_pkgs() {
+  pary -aS --noconfirm - < aur.pkgs
+}
+
 # Make sure git is installed sudo stuff still unclear
 #sudo pacman -S --noconfirm git
 #install_paru
@@ -18,8 +26,8 @@ install_paru() {
 ## call paru to install everything we need
 
 # Make symlinks of all confs
-for d in $(ls -d confs); do
-  echo $d
+for d in $(ls confs); do
+  ln -s $(pwd)/confs/$d $HOME/.config/$d
 done
 
 # Make vim install all plugins

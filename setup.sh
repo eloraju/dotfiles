@@ -22,13 +22,12 @@ install_official_pkgs() {
 
 ## install paru to get aur stuff
 
-
 ## call paru to install everything we need
 
 # Make symlinks of all confs
-for d in $(ls confs); do
-  ln -s $(pwd)/confs/$d $HOME/.config/$d
-done
+#for d in $(ls confs); do
+#  ln -s $(pwd)/confs/$d $HOME/.config/$d
+#done
 
 # Make vim install all plugins
 #nvim -es +PackerSync

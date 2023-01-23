@@ -1,0 +1,3 @@
+[submodule "confs/awesome/awesome-wm-widgets"]
+	path = confs/awesome/awesome-wm-widgets
+	url = https://github.com/streetturtle/awesome-wm-widgets

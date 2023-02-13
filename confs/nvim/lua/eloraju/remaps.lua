@@ -28,3 +28,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 -- make current file executabel
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- splits
+vim.keymap.set("n","<C-s>j","<cmd>split<CR><C-w>j")
+vim.keymap.set("n","<C-s>l","<cmd>vsplit<CR><C-w>l")

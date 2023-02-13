@@ -28,6 +28,6 @@ vim.opt.updatetime = 50
 -- maybe use a function to determine when to use this
 -- it's just a highlighted column at the 80 char mark
 -- very useful e.g. with markup
-vim.opt.colorcolumn = "80"
+--vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "

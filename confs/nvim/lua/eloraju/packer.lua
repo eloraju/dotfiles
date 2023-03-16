@@ -46,7 +46,10 @@ return require('packer').startup(function(use)
 			-- Snippet Collection (Optional)
 			{'rafamadriz/friendly-snippets'},
 		}
+
 	}
+
+  use('ThePrimeagen/vim-be-good')
 
 	use('nvim-lua/plenary.nvim')
 	use('ThePrimeagen/harpoon')

@@ -14,3 +14,4 @@ run picom
 run variety
 run xbanish
 run 1password
+run blueman-applet

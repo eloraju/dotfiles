@@ -53,7 +53,6 @@ local globalkeys = {
   awful.key(HYPER, "s", util.suspend, { description = "suspend system", group = "awesome" }),
   awful.key(HYPER, "l", util.lock, { description = "lock screen", group = "awesome" }),
   awful.key(M, "Return", util.spawnTerm, { description = "open a terminal", group = "launcher" }),
-  awful.key(M, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
   awful.key(M, "Escape", awful.tag.history.restore, { description = "return to previously selected", group = "tag" }),
 
   -- Client calls

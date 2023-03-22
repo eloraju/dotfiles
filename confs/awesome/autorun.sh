@@ -9,6 +9,7 @@ run() {
 
 setxkbmap -option ctrl:nocaps
 
+run autorandr -c
 run nm-applet
 run picom
 run variety

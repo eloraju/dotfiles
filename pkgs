@@ -4,11 +4,11 @@ autorandr
 bat
 btop
 docker
-docker-compose
 exa
 man-db
 pavucontrol
 picom
 ripgrep
+stow
 tealdeer
 zsh

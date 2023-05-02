@@ -24,10 +24,8 @@ install_official_pkgs() {
 
 ## call paru to install everything we need
 
-# Make symlinks of all confs
-#for d in $(ls confs); do
-#  ln -s $(pwd)/confs/$d $HOME/.config/$d
-#done
+# Make symlinks of all confs with stow
+# stow home
 
 # Make vim install all plugins
 #nvim -es +PackerSync

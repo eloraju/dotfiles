@@ -1,0 +1,59 @@
+#!/bin/sh
+
+#alias ls="ls --color=auto"
+#alias la="ls -la --color=auto"
+#alias ll="ls -l --color=auto"
+alias ls="exa"
+alias la="exa -la --group-directories-first"
+alias ll="exa -l --group-directories-first"
+alias lt="exa -l --tree"
+
+alias ssh="TERM=xterm-256color ssh"
+
+alias find=fd
+
+alias pacman="sudo pacman"
+alias systemctl="sudo systemctl"
+
+# You never know what you might type
+alias v="nvim"
+alias vi="nvim"
+alias vim="nvim"
+
+alias vimdiff="nvim -d"
+
+alias config="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias sysus="systemctl suspend"
+
+alias grubdate="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+### Git stuff
+alias gil="git pull"
+alias gip="git push"
+alias gco="git checkout"
+alias gs="git switch"
+alias gsl="git log --abbrev-commit --oneline"
+alias gnb="git checkout -b"
+alias gcam="git commit -am" 
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+alias refresh-mirrors="echo 'Refreshing mirrors...' &&\
+                sudo reflector --country Finland \
+                --country Sweden \
+                --country Germany \
+                --country Norway \
+                --country Denmark \
+                --country 'United Kingdom' \
+                --country Netherlands \
+                --country Poland \
+                --latest 50 \
+                --sort rate \
+                --save /etc/pacman.d/mirrorlist &&\
+                echo 'Mirrors refreshed.'"
+
+function cd() {
+  chdir $1 && ll
+}

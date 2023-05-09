@@ -16,4 +16,4 @@ install_official_pkgs() {
   pary -aS --noconfirm - < aur.pkgs
 }
 
-stow --dotfiles home
+stow home

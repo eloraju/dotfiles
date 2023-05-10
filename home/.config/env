@@ -1,7 +1,7 @@
 #!/bin/sh
 export USER_BIN=$HOME/.local/user/bin
 export LOCAL_BIN=$HOME/.local/bin
-export USER_SCRIPTS=$HOME/.local/user/scripts
+export SCRIPTS_DIR=$HOME/.local/user/scripts
 
 # XDG DIRS
 export XDG_CONFIG_HOME=$HOME/.config
@@ -45,4 +45,4 @@ export DOTBARE_DIR="$HOME/.dotfiles"
 export DOTBARE_TREE="$HOME"
 
 
-export PATH=$LOCAL_BIN:$USER_SCRIPTS:$USER_BIN:/usr/local/bin:$CARGO_INSTALL_ROOT/bin:$RUSTPUP_ROOT:$PATH
+export PATH=$LOCAL_BIN:$SCRIPTS_DIR:$USER_BIN:/usr/local/bin:$CARGO_INSTALL_ROOT/bin:$RUSTPUP_ROOT:$PATH

@@ -65,20 +65,6 @@ compinit
 _comp_options+=(globdots)
 
 
-# lf to cd around by LukeSmith
-lfcd() {
-    tmp=$(mktemp)
-    lf -last-dir-path=$tmp "$@"
-    if [ -f $tmp ]; then
-        dir="$(cat $tmp)"
-        rm -rf $tmp
-        [ -d $dir ] && [ $dir != $(pwd) ] && cd $dir
-    fi
-}
-
-bindkey -s '^o' 'lfcd\n'
-
-
 ###-begin-npm-completion-###
 #
 # npm command completion script

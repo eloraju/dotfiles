@@ -57,7 +57,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>ka",  vim.lsp.buf.code_action , opts)
 	vim.keymap.set("n", "<leader>kr",  vim.lsp.buf.references , opts)
   vim.keymap.set("n", "<leader>kn",  vim.lsp.buf.rename , opts)
-  vim.keymap.set("n", "<leader>bf",
+  vim.keymap.set("n", "<leader>kf",
   function()
     vim.lsp.buf.format({async=false, timeout_ms=10000})
   end, opts)

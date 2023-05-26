@@ -150,4 +150,9 @@ eval "$(starship init zsh)"
 # pnpm
 export PNPM_HOME="/home/juuso/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
+# tab completion for pnpm
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 # pnpm end

@@ -50,6 +50,7 @@ lsp.on_attach(function(client, bufnr)
 
 	vim.keymap.set("n", "gd",  vim.lsp.buf.definition , opts)
 	vim.keymap.set("n", "K",  vim.lsp.buf.hover , opts)
+	vim.keymap.set("n", "<leader>kh",  vim.lsp.buf.signature_help , opts)
 	vim.keymap.set("n", "<leader>kss",  vim.lsp.buf.workspace_symbol , opts)
 	vim.keymap.set("n", "<leader>kd",  vim.diagnostic.open_float , opts)
 	vim.keymap.set("n", "<leader>dn",  vim.diagnostic.goto_next , opts)
@@ -57,7 +58,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>ka",  vim.lsp.buf.code_action , opts)
 	vim.keymap.set("n", "<leader>kr",  vim.lsp.buf.references , opts)
   vim.keymap.set("n", "<leader>kn",  vim.lsp.buf.rename , opts)
-  vim.keymap.set("n", "<leader>kf",
+  vim.keymap.set("n", "<leader>bf",
   function()
     vim.lsp.buf.format({async=false, timeout_ms=10000})
   end, opts)

@@ -1,12 +1,7 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.scripts:$HOME/bin:/usr/local/bin:$HOME/.emacs.d/bin/:$PATH
-systemctl --user import-environment PATH
-
-export EDITOR=nvim
-
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-[ -f "$HOME/.config/exportrc" ] && source "$HOME/.config/exportrc"
 [ -f "$HOME/.config/env" ] && source "$HOME/.config/env"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Luke Smith's vim key navigation
 # # vi mode
@@ -126,16 +121,12 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
-# Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
-# Load nvm
-# nvm
-#export NVM_DIR="$XDG_DATA_HOME/nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# NEW!! nvm from aur
-source /usr/share/nvm/init-nvm.sh
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  
+# This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  
 
 # Plugins
 source $HOME/.config/zsh/zsh-nvm-plugin.zsh
@@ -147,12 +138,5 @@ export MANPAGER="sh -c 'col -bx |bat -l man -p'"
 
 eval "$(starship init zsh)"
 
-# pnpm
-export PNPM_HOME="/home/juuso/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-
-# tab completion for pnpm
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-# pnpm end
+# Load zsh-syntax-highlighting; should be last.
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null

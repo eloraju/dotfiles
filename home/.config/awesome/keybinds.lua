@@ -175,7 +175,7 @@ local clientbuttons = {
 
 local mouseButtons = function(menu)
   return {
-    awful.button({}, 3, function() menu:toggle() end),
+    --awful.button({}, 3, function() menu:toggle{} end),
     awful.button({}, 4, awful.tag.viewprev),
     awful.button({}, 5, awful.tag.viewnext),
   }

@@ -36,7 +36,9 @@ local clienRules = function()
         "Timer-for-harvest",
         "droidcam",
         "1Password",
-        "net.battlescribe.desktop.rostereditor.RosterEditorApplication"
+        "net.battlescribe.desktop.rostereditor.RosterEditorApplication",
+        "Godot",
+        "vampire-clone",
       },
       -- Note that the name property shown in xprop might be set slightly after creation of the client
       -- and the name shown there might not match defined rules here.

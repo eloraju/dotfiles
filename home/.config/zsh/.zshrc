@@ -2,6 +2,8 @@
 [ -f "$HOME/.config/env" ] && source "$HOME/.config/env"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(starship init zsh)"
+
 
 # Luke Smith's vim key navigation
 # # vi mode
@@ -50,23 +52,11 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# custom completions
-fpath+=~/.config/completions
-
 
 # Add hidden files to autocomplete
 autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
-
-
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
 
 if type complete &>/dev/null; then
   _npm_completion () {
@@ -121,22 +111,13 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
-
+export MANPAGER="sh -c 'col -bx |bat -l man -p'"
+#export MANPAGER="nvim -c 'set ft=man'"
+#
 export NVM_DIR="$HOME/.nvm"
 # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  
 # This loads nvm bash_completion
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  
 
-# Plugins
-source $HOME/.config/zsh/zsh-nvm-plugin.zsh
-source $HOME/.config/zsh/zsh-npm-completion.zsh
-source $HOME/.config/zsh/zsh-aws-completion.zsh
-
-export MANPAGER="sh -c 'col -bx |bat -l man -p'"
-#export MANPAGER="nvim -c 'set ft=man'"
-
-eval "$(starship init zsh)"
-
-# Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+unset PREFIX

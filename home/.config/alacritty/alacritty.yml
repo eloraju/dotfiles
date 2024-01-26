@@ -4,9 +4,9 @@ font:
   # Normal (roman) font face
   normal:
     family: Comic Code Ligatures #JetBrainsMono Nerd Font Mono
-  size: 7
+  size: 10
 window:
-  opacity: 0.9
+  opacity: 1
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.

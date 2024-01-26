@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -30,4 +32,3 @@ vim.opt.updatetime = 50
 -- very useful e.g. with markup
 --vim.opt.colorcolumn = "80"
 
-vim.g.mapleader = " "

@@ -1,0 +1,8 @@
+[font]
+size = 11
+
+[font.normal]
+family = "Comic Code Ligatures"
+
+[window]
+opacity = 0.8

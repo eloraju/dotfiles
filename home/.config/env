@@ -1,6 +1,6 @@
 #!/bin/sh
-export USER_BIN=$HOME/.local/user/bin
 export LOCAL_BIN=$HOME/.local/bin
+export USER_BIN=$HOME/.local/user/bin
 export SCRIPTS_DIR=$HOME/.local/user/scripts
 
 # XDG DIRS
@@ -10,7 +10,8 @@ export XDG_DATA_HOME=$HOME/.local/share
 
 # Rust packages
 export CARGO_INSTALL_ROOT=$XDG_DATA_HOME/cargo
-export RUSTPUP_ROOT=$HOME/.cargo/bin
+CARGO_BIN=$CARGO_INSTALL_ROOT/bin
+RUSTPUP_ROOT=$HOME/.cargo/bin
 
 # zsh
 export ZDOTDIR=$HOME/.config/zsh
@@ -26,13 +27,16 @@ export VISUAL=nvim
 export EDITOR=$VISUAL
 export SUDO_EDITOR=$VISUAL
 
-
-export PATH=$LOCAL_BIN:$SCRIPTS_DIR:$USER_BIN:/usr/local/bin:$CARGO_INSTALL_ROOT/bin:$RUSTPUP_ROOT:$PATH
-
-export ANDROID_HOME="/Users/juuso.elo-rauta/Library/Android/sdk"
+# Android studio stuff
+ANDROID_HOME="/Users/juuso.elo-rauta/Library/Android/sdk"
 
 # Add android home to path
-export PATH=$ANROID_HOME/emulator:$PATH
+ANDROID_EMULATOR="$ANDROID_HOME/emulator"
+ANDROID_PLAT_TOOLS="$ANDROID_HOME/platform-tools"
+
 # Add intellij idea to path
-export PATH=/Applications/IntelliJ\ IDEA.app/Contents/MacOS:$PATH
+INTELLIJ_PATH=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
+
+export PATH=$LOCAL_BIN:$SCRIPTS_DIR:$USER_BIN:$CARGO_BIN:$RUSTPUP_ROOT:$ANDROID_EMULATOR:$ANDROID_PLAT_TOOLS:$INTELLIJ_PATH:$PATH
+
 

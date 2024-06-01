@@ -1,12 +1,9 @@
 #!/bin/sh
 
-#alias ls="ls --color=auto"
-#alias la="ls -la --color=auto"
-#alias ll="ls -l --color=auto"
-alias ls="exa"
-alias la="exa -la --group-directories-first"
-alias ll="exa -l --group-directories-first"
-alias lt="exa -l --tree"
+alias ls="eza"
+alias la="eza -la --group-directories-first"
+alias ll="eza -l --group-directories-first"
+alias lt="eza -l --tree"
 
 alias ssh="TERM=xterm-256color ssh"
 

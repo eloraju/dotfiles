@@ -3,8 +3,8 @@
 font:
   # Normal (roman) font face
   normal:
-    family: Comic Code Ligatures #JetBrainsMono Nerd Font Mono
-  size: 12
+    family: ComicShannsMono Nerd Font #Comic Code Ligatures #JetBrainsMono Nerd Font Mono
+  size: 14
 window:
   opacity: 1
 # Any items in the `env` entry below will be added as

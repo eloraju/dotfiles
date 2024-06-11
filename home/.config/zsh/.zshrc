@@ -120,4 +120,7 @@ export NVM_DIR="$HOME/.nvm"
 # This loads nvm bash_completion
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  
 
+#fzf init
+source <(fzf --zsh)
+
 unset PREFIX

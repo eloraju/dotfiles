@@ -63,7 +63,10 @@ vim.opt.scrolloff = 10
 
 vim.opt.hlsearch = true
 
--- Tab witdth and expansion
+-- I'm too dump to get the modeline working
+-- vim: set ts=2 sts=2 sw=2 et
+-- Tab width and expansion
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true

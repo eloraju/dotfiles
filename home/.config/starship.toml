@@ -13,10 +13,10 @@ format='\([$hostname](green bold)\): '
 show_always=false
 
 [directory]
-truncation_symbol='.../'
+truncation_symbol='../'
 truncation_length=4
 
 [git_branch]
-format="[$symbol$branch]($style)"
+format="[$branch]($style)"
 
 [git_status]

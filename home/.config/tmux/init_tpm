@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+tmux_conf=$(tmux display-message -p "#{config_files}")
+tmux_conf_dir=$(dirname "$tmux_conf")
+plugins_dir=$tmux_conf_dir/plugins
+
+if [ ! -d "$plugins_dir" ]; then
+  # Plugins dir doesn't exists, sooooo...
+  mkdir plugins
+fi
+
+if [ ! -d "$plugins_dir/tpm" ]; then
+  # Plugins dir exists, but tpm isn't cloned
+  tmux display-message "installing tpm"
+  git clone https://github.com/tmux-plugins/tpm "$plugins_dir/tpm"
+fi

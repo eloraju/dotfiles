@@ -5,7 +5,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 #eval "$(starship init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
 
-
 # Luke Smith's vim key navigation
 # # vi mode
 bindkey -v
@@ -15,11 +14,9 @@ export KEYTIMEOUT=1
 HISTFILE="$HOME/.local/share/zsh/history"
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE
-setopt HIST_IGNORE_ALL_DUPS     # Delete old recorded entry if new entry is a duplicate.
-setopt INC_APPEND_HISTORY       # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY            # Share history between all sessions.
-
-
+setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
+setopt INC_APPEND_HISTORY   # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY        # Share history between all sessions.
 
 # Use vim keys in tab complete menu:
 #bindkey -M menuselect 'h' vi-backward-char
@@ -31,23 +28,23 @@ setopt SHARE_HISTORY            # Share history between all sessions.
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
+    [[ $1 = 'block' ]]; then
     echo -ne '\e[1 q'
   elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
+    [[ ${KEYMAP} == viins ]] ||
+    [[ ${KEYMAP} = '' ]] ||
+    [[ $1 = 'beam' ]]; then
     echo -ne '\e[5 q'
   fi
 }
 zle -N zle-keymap-select
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+echo -ne '\e[5 q'                # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q'; } # Use beam shape cursor for each new prompt.
 
 # Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
+autoload edit-command-line
+zle -N edit-command-line
 bindkey '^e' edit-command-line
-
 
 # Add hidden files to autocomplete
 autoload -Uz compinit
@@ -55,7 +52,7 @@ compinit
 _comp_options+=(globdots)
 
 if type complete &>/dev/null; then
-  _npm_completion () {
+  _npm_completion() {
     local words cword
     if type _get_comp_words_by_ref &>/dev/null; then
       _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
@@ -66,10 +63,10 @@ if type complete &>/dev/null; then
 
     local si="$IFS"
     IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${words[@]}" \
-                           2>/dev/null)) || return $?
+      COMP_LINE="$COMP_LINE" \
+      COMP_POINT="$COMP_POINT" \
+      npm completion -- "${words[@]}" \
+      2>/dev/null)) || return $?
     IFS="$si"
     if type __ltrim_colon_completions &>/dev/null; then
       __ltrim_colon_completions "${words[cword]}"
@@ -79,16 +76,16 @@ if type complete &>/dev/null; then
 elif type compdef &>/dev/null; then
   _npm_completion() {
     local si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
+    compadd -- $(COMP_CWORD=$((CURRENT - 1)) \
+      COMP_LINE=$BUFFER \
+      COMP_POINT=0 \
+      npm completion -- "${words[@]}" \
+      2>/dev/null)
     IFS=$si
   }
   compdef _npm_completion npm
 elif type compctl &>/dev/null; then
-  _npm_completion () {
+  _npm_completion() {
     local cword line point words si
     read -Ac words
     read -cn cword
@@ -97,10 +94,10 @@ elif type compctl &>/dev/null; then
     read -ln point
     si="$IFS"
     IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
+      COMP_LINE="$line" \
+      COMP_POINT="$point" \
+      npm completion -- "${words[@]}" \
+      2>/dev/null)) || return $?
     IFS="$si"
   }
   compctl -K _npm_completion npm
@@ -112,9 +109,9 @@ export MANPAGER="sh -c 'col -bx |bat -l man -p'"
 #
 export NVM_DIR="$HOME/.nvm"
 # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 # This loads nvm bash_completion
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 #fzf init
 source <(fzf --zsh)

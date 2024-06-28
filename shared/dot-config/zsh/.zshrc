@@ -10,9 +10,10 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # History stuff
-HISTFILE="$HOME/.local/share/zsh/history"
-HISTSIZE=10000
-SAVEHIST=$HISTSIZE
+export HISTFILE="$HOME/.local/share/zsh/history"
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
+
 setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
 setopt INC_APPEND_HISTORY   # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY        # Share history between all sessions.
@@ -64,4 +65,5 @@ export NVM_DIR="$HOME/.nvm"
 #fzf init
 source <(fzf --zsh)
 
+#???????
 unset PREFIX

@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+#stow home
+def_target="$HOME/.config"
+def_source="all"
+
+zparseopts -E -D -K -a flags -- \
+  t:=target_dir \
+  s:=source_dir \
+  d=dry \
+  h=help \
+  -target-dir:=target_dir \
+  -source-dir:=source_dir \
+  -dry-run=dry \
+  -help=help
+
+if [[ -n "$help" ]]; then
+  cat <<EOF
+Usage: $0  [-d] [-h] [-t target_dir] [-s source_dir]
+
+  -t DIR, --target-dir=DIR     target directory to stow to (default: ~/.config)
+  -s DIR, --source-dir=DIR     source directory to stow from (default: current dir)
+
+  -d, --dry-run                simulate the stow operation, good for checking for errors
+
+  -h, --help                   show this help
+EOF
+  exit 0
+fi
+
+final_target=${target_dir:-$HOME}
+final_source=${source_dir:-all}
+if [[ -n "$dry" ]]; then
+  echo "simulate stowing from $final_source to $final_target"
+  stow --simulate --dotfiles --verbose=2 -t "${final_target:-HOME}" "${final_source:-all}"
+  exit 0
+fi
+
+#stow --dotfiles -t "$target_dir" "$source_dir"

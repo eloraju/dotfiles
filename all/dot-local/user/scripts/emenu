@@ -1,0 +1,19 @@
+#!/bin/sh
+
+prompt_emoji() {
+    cut -d ';' -f1 ~/.local/share/emoji | dmenu -l 15 -i | awk '{print $1}'| tr -d '\n' | xclip -selection clipboard
+    notify-send "$(xclip -o -selection clipboard) copied to clipboard" 
+}
+
+get_active_window() {
+    PASTE_TARGET=$(xdotool getactivewindow)
+}
+
+paste_to_window() {
+    xdotool windowactivate $PASTE_TARGET
+    xdotool type --window $PASTE_TARGET --clearmodifiers $(xclip -o -selection clipboard)
+}
+
+get_active_window
+prompt_emoji
+paste_to_window

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+WP_PATH=$HOME/.config/wallpaper
+
+setWP() {
+    cp $1 $WP_PATH
+    updateWP
+}
+
+setRandomWP() {
+    wpDir=$1
+    [ -z "$wpDir" ] && wpDir="$HOME/pictures/wallpapers"
+    cp "$(find "$wpDir" -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -type f | shuf -n 1)" "$WP_PATH"
+    updateWP
+}
+
+silentSet() {
+    cp $1 $WP_PATH
+    updateWP -s
+}
+
+updateWP() {
+    /usr/bin/feh --bg-scale $WP_PATH
+    [[ -z "$1" ]] && notify-send -i $WP_PATH "Wallpaper changed"
+}
+
+# No output
+[ "$1" == "-s" ] && silentSet $2
+# Set the given file as wallpaper
+# Error handling is for the weak
+[ -f "$1" ] && setWP $1
+# Nab a random wallpaper
+# Second argument because if there's a dir there we'll use it!
+[ "$1" == "-r" ] && setRandomWP $2

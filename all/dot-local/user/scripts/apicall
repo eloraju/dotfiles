@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/deno run --allow-net /home/juuso/.local/user/scripts/japi.ts $@

@@ -1,0 +1,42 @@
+#!/bin/sh
+export LOCAL_BIN=$HOME/.local/bin
+export USER_BIN=$HOME/.local/user/bin
+export SCRIPTS_DIR=$HOME/.local/user/scripts
+
+# XDG DIRS
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.local/cache
+export XDG_DATA_HOME=$HOME/.local/share
+
+# Rust packages
+export CARGO_INSTALL_ROOT=$XDG_DATA_HOME/cargo
+CARGO_BIN=$CARGO_INSTALL_ROOT/bin
+RUSTPUP_ROOT=$HOME/.cargo/bin
+
+# zsh
+export ZDOTDIR=$HOME/.config/zsh
+
+# Path to your oh-my-zsh installation.
+export ZSH=$XDG_DATA_HOME/oh-my-zsh
+
+# GnuPG
+export GNUPGHOME=$XDG_DATA_HOME/gnupg
+
+# nvim as editor
+export VISUAL=nvim
+export EDITOR=$VISUAL
+export SUDO_EDITOR=$VISUAL
+
+# Android studio stuff
+ANDROID_HOME="/Users/juuso.elo-rauta/Library/Android/sdk"
+
+# Add android home to path
+ANDROID_EMULATOR="$ANDROID_HOME/emulator"
+ANDROID_PLAT_TOOLS="$ANDROID_HOME/platform-tools"
+
+# Add intellij idea to path
+INTELLIJ_PATH=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
+
+export PATH=$LOCAL_BIN:$SCRIPTS_DIR:$USER_BIN:$CARGO_BIN:$RUSTPUP_ROOT:$ANDROID_EMULATOR:$ANDROID_PLAT_TOOLS:$INTELLIJ_PATH:$PATH
+
+

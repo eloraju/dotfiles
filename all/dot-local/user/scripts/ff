@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+rg --files | fzf \
+--preview='bat --color=always --decorations=never {}' \
+--bind 'ctrl-u:preview-page-up' \
+--bind 'ctrl-d:preview-page-down' \
+--bind 'ctrl-b:become(bat {})' \
+--bind 'ctrl-v:become(nvim {})'

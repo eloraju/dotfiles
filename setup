@@ -1,7 +1,4 @@
 #!/usr/bin/env zsh
-#stow home
-def_target="$HOME/.config"
-def_source="all"
 
 zparseopts -E -D -K -a flags -- \
   t:=target_dir \

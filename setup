@@ -29,6 +29,7 @@ fi
 
 final_target=${target_dir:-$HOME}
 final_source=${source_dir:-all}
+
 if [[ -n "$dry" ]]; then
   echo "simulate stowing from $final_source to $final_target"
   stow --simulate --dotfiles --verbose=2 -t "${final_target:-HOME}" "${final_source:-all}"

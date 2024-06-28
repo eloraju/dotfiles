@@ -23,10 +23,10 @@ darwin*)
 linux*)
   if [ -n "$delete_flag" ]; then
     echo "Detected Linux. Removing dotfiles"
-    stow --dotfiles -t "$HOME" -D shared
+    stow --dotfiles -t "$HOME" -D shared -D linux
   else
     echo "Detected Linux. Installing dotfiles"
-    stow --dotfiles -t "$HOME" shared
+    stow --dotfiles -t "$HOME" shared linux
   fi
   ;;
 *)

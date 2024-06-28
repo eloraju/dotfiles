@@ -1,4 +1,0 @@
-#!/bin/sh
-
-sel=$(/usr/bin/fd $1 | fzf -m)
-/usr/bin/nvim -p $sel

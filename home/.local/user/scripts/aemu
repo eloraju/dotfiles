@@ -1,4 +1,0 @@
-#!/bin/sh
-
-AVD=$(emulator -list-avds | fzf --tmux center --prompt="Select AVD: " --reverse --border --border-label="Installed AVDs")
-emulator -avd $AVD

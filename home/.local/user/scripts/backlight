@@ -1,6 +1,0 @@
-#!/bin/sh
-# TODO: create the script
-
-
-# Make it shot a notification after brightness has been adjusted
-sudo xbacklight -get

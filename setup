@@ -1,36 +1,36 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-zparseopts -E -D -K -a flags -- \
-  t:=target_dir \
-  s:=source_dir \
-  d=dry \
-  h=help \
-  -target-dir:=target_dir \
-  -source-dir:=source_dir \
-  -dry-run=dry \
-  -help=help
+# run in bash to avoid issues with zsh not being installed yet
 
-if [[ -n "$help" ]]; then
-  cat <<EOF
-Usage: $0  [-d] [-h] [-t target_dir] [-s source_dir]
+delete_flag=
+while getopts d option; do
+  case $option in
+  d) delete_flag=1 ;;
+  *) ;;
+  esac
+done
 
-  -t DIR, --target-dir=DIR     target directory to stow to (default: ~/.config)
-  -s DIR, --source-dir=DIR     source directory to stow from (default: current dir)
-
-  -d, --dry-run                simulate the stow operation, good for checking for errors
-
-  -h, --help                   show this help
-EOF
-  exit 0
-fi
-
-final_target=${target_dir:-$HOME}
-final_source=${source_dir:-all}
-
-if [[ -n "$dry" ]]; then
-  echo "simulate stowing from $final_source to $final_target"
-  stow --simulate --dotfiles --verbose=2 -t "${final_target:-HOME}" "${final_source:-all}"
-  exit 0
-fi
-
-#stow --dotfiles -t "$target_dir" "$source_dir"
+case $OSTYPE in
+darwin*)
+  if [ -n "$delete_flag" ]; then
+    echo "Detected macOS. Removing macOS-specific dotfiles."
+    stow --dotfiles -t "$HOME" -D shared -D mac
+  else
+    echo "Detected macOS. Installing macOS-specific dotfiles."
+    stow --dotfiles -t "$HOME" shared mac
+  fi
+  ;;
+linux*)
+  if [ -n "$delete_flag" ]; then
+    echo "Detected Linux. Removing dotfiles"
+    stow --dotfiles -t "$HOME" -D shared
+  else
+    echo "Detected Linux. Installing dotfiles"
+    stow --dotfiles -t "$HOME" shared
+  fi
+  ;;
+*)
+  echo "What is this OS? '$OSTYPE'"
+  exit 1
+  ;;
+esac

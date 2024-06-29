@@ -1,18 +1,11 @@
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-[ -f "$HOME/.config/env" ] && source "$HOME/.config/env"
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Prompt
 #eval "$(starship init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
 
 # set vi mode
 bindkey -v
-export KEYTIMEOUT=1
-
-# History stuff
-export HISTFILE="$HOME/.local/share/zsh/history"
-export HISTSIZE=10000
-export SAVEHIST=$HISTSIZE
 
 setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
 setopt INC_APPEND_HISTORY   # Write to the history file immediately, not when the shell exits.
@@ -46,6 +39,12 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# this is very mac specific...
+# add brew completions AND completions for commands installed with brew
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
 # Add hidden files to autocomplete
 autoload -Uz compinit
 compinit
@@ -53,10 +52,6 @@ _comp_options+=(globdots)
 
 source ~/.config/zsh/npm_completion.zsh
 
-#export MANPAGER="sh -c 'col -bx |bat -l man -p'"
-export MANPAGER="nvim +Man!"
-
-export NVM_DIR="$HOME/.nvm"
 # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 # This loads nvm bash_completion

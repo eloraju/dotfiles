@@ -3,9 +3,11 @@
 # run in bash to avoid issues with zsh not being installed yet
 
 delete_flag=
-while getopts d option; do
+reset_flag=
+while getopts dr option; do
   case $option in
   d) delete_flag=1 ;;
+  r) reset_flag=1 ;;
   *) ;;
   esac
 done
@@ -15,6 +17,9 @@ darwin*)
   if [ -n "$delete_flag" ]; then
     echo "Detected macOS. Removing macOS-specific dotfiles."
     stow --dotfiles -t "$HOME" -D shared -D mac
+  elif [ -n "$reset_flag" ]; then
+    echo "Detected macOS. Resetting macOS-specific dotfiles."
+    stow --dotfiles -t "$HOME" -R shared -R mac
   else
     echo "Detected macOS. Installing macOS-specific dotfiles."
     stow --dotfiles -t "$HOME" shared mac
@@ -24,6 +29,9 @@ linux*)
   if [ -n "$delete_flag" ]; then
     echo "Detected Linux. Removing dotfiles"
     stow --dotfiles -t "$HOME" -D shared -D linux
+  elif [ -n "$reset_flag" ]; then
+    echo "Detected Linux. Resetting dotfiles"
+    stow --dotfiles -t "$HOME" -R shared -R linux
   else
     echo "Detected Linux. Installing dotfiles"
     stow --dotfiles -t "$HOME" shared linux

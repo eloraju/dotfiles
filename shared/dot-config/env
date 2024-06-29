@@ -2,6 +2,7 @@
 export LOCAL_BIN=$HOME/.local/bin
 export USER_BIN=$HOME/.local/user/bin
 export SCRIPTS_DIR=$HOME/.local/user/scripts
+LOCAL_BINS=$LOCAL_BIN:$USER_BIN:$SCRIPTS_DIR
 
 # XDG DIRS
 export XDG_CONFIG_HOME=$HOME/.config
@@ -11,13 +12,11 @@ export XDG_DATA_HOME=$HOME/.local/share
 # Rust packages
 export CARGO_INSTALL_ROOT=$XDG_DATA_HOME/cargo
 CARGO_BIN=$CARGO_INSTALL_ROOT/bin
-RUSTPUP_ROOT=$HOME/.cargo/bin
+RUSTPUP_BIN=$HOME/.cargo/bin
+RUST_BINS=$CARGO_BIN:$RUSTPUP_BIN
 
 # zsh
 export ZDOTDIR=$HOME/.config/zsh
-
-# Path to your oh-my-zsh installation.
-export ZSH=$XDG_DATA_HOME/oh-my-zsh
 
 # GnuPG
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
@@ -27,16 +26,29 @@ export VISUAL=nvim
 export EDITOR=$VISUAL
 export SUDO_EDITOR=$VISUAL
 
+export KEYTIMEOUT=1
+
+# History stuff
+export HISTFILE="$HOME/.local/share/zsh/history"
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
+#export MANPAGER="sh -c 'col -bx |bat -l man -p'"
+export MANPAGER="nvim +Man!"
+
+export NVM_DIR="$HOME/.nvm"
+
 # Android studio stuff
-ANDROID_HOME="/Users/juuso.elo-rauta/Library/Android/sdk"
+export ANDROID_HOME="/Users/juuso.elo-rauta/Library/Android/sdk"
 
 # Add android home to path
-ANDROID_EMULATOR="$ANDROID_HOME/emulator"
-ANDROID_PLAT_TOOLS="$ANDROID_HOME/platform-tools"
+#ANDROID_EMULATOR="$ANDROID_HOME/emulator"
+#ANDROID_PLAT_TOOLS="$ANDROID_HOME/platform-tools"
+#ANDROID_BINS=$ANDROID_HOME:$ANDROID_EMULATOR:$ANDROID_PLAT_TOOLS
 
 # Add intellij idea to path
-INTELLIJ_PATH=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
+IDEA_BIN=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
 
-export PATH=$LOCAL_BIN:$SCRIPTS_DIR:$USER_BIN:$CARGO_BIN:$RUSTPUP_ROOT:$ANDROID_EMULATOR:$ANDROID_PLAT_TOOLS:$INTELLIJ_PATH:$PATH
+# add homebrew to path before other stuff to prevent duplication
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-
+export PATH=$LOCAL_BINS:$RUST_BINS:$ANDROID_BINS:$IDEA_BIN:$PATH

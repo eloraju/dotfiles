@@ -62,3 +62,6 @@ source <(fzf --zsh)
 
 #???????
 unset PREFIX
+
+# bun completions
+[ -s "/Users/juuso.elo-rauta/.bun/_bun" ] && source "/Users/juuso.elo-rauta/.bun/_bun"

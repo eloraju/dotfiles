@@ -1,0 +1,17 @@
+#!/bin/sh
+# Mac specific environment variables
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Android studio stuff
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+# Add android binaries
+ANDROID_TOOLS="$ANDROID_HOME/toold"
+ANDROID_PLAT_TOOLS="$ANDROID_HOME/platform-tools"
+ANDROID_BINS=$ANDROID_HOME:$ANDROID_TOOLS:$ANDROID_PLAT_TOOLS
+
+# Add intellij idea to path
+IDEA_BIN=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
+
+PATH=~/.console-ninja/.bin:$PATH
+PATH=$ANDROID_BINS:$IDEA_BIN:$PATH

@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# make zsh read configs from ~/.config/zsh instead of ~/
+export ZDOTDIR=$HOME/.config/zsh
+
 export LOCAL_BIN=$HOME/.local/bin
 export USER_BIN=$HOME/.local/user/bin
 export SCRIPTS_DIR=$HOME/.local/user/scripts
@@ -14,9 +18,6 @@ export CARGO_INSTALL_ROOT=$XDG_DATA_HOME/cargo
 CARGO_BIN=$CARGO_INSTALL_ROOT/bin
 RUSTPUP_BIN=$HOME/.cargo/bin
 RUST_BINS=$CARGO_BIN:$RUSTPUP_BIN
-
-# zsh
-export ZDOTDIR=$HOME/.config/zsh
 
 # GnuPG
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
@@ -37,18 +38,13 @@ export MANPAGER="nvim +Man!"
 
 export NVM_DIR="$HOME/.nvm"
 
-# Android studio stuff
-export ANDROID_HOME="/Users/juuso.elo-rauta/Library/Android/sdk"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Add android home to path
-#ANDROID_EMULATOR="$ANDROID_HOME/emulator"
-#ANDROID_PLAT_TOOLS="$ANDROID_HOME/platform-tools"
-#ANDROID_BINS=$ANDROID_HOME:$ANDROID_EMULATOR:$ANDROID_PLAT_TOOLS
+# source mac envs if running on mac
+if [ "$(uname)" = "Darwin" ]; then
+  source $HOME/.config/env_mac
+fi
 
-# Add intellij idea to path
-IDEA_BIN=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
-
-# add homebrew to path before other stuff to prevent duplication
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-export PATH=$LOCAL_BINS:$RUST_BINS:$ANDROID_BINS:$IDEA_BIN:$PATH
+export PATH=$LOCAL_BINS:$RUST_BINS:$PATH

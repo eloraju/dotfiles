@@ -27,7 +27,7 @@ alias gl="git log"
 alias gnb="git checkout -b"
 alias gam="git commit -am" 
 alias gm="git commit -m" 
-alias gg="git status" 
+alias gst="git status" 
 
 alias ..="cd .."
 alias ...="cd ../.."

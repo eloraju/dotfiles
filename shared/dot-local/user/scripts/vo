@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-sel=$(/usr/bin/fd $1 | fzf -m)
-/usr/bin/nvim -p $sel
+sel=$(fd $1 | fzf -m)
+nvim -p $sel

@@ -13,5 +13,9 @@ ANDROID_BINS=$ANDROID_HOME:$ANDROID_TOOLS:$ANDROID_PLAT_TOOLS
 # Add intellij idea to path
 IDEA_BIN=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+BUN_BIN="$BUN_INSTALL/bin:$PATH"
+
 PATH=~/.console-ninja/.bin:$PATH
-PATH=$ANDROID_BINS:$IDEA_BIN:$PATH
+PATH=$ANDROID_BINS:$IDEA_BIN:$BUN_BIN:$PATH

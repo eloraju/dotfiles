@@ -38,10 +38,6 @@ export MANPAGER="nvim +Man!"
 
 export NVM_DIR="$HOME/.nvm"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 # source mac envs if running on mac
 if [ "$(uname)" = "Darwin" ]; then
   source $HOME/.config/env_mac

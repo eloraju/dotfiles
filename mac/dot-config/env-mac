@@ -15,7 +15,7 @@ IDEA_BIN=/Applications/IntelliJ\ IDEA.app/Contents/MacOS
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-BUN_BIN="$BUN_INSTALL/bin:$PATH"
+BUN_BIN="$BUN_INSTALL/bin"
 
 PATH=~/.console-ninja/.bin:$PATH
 PATH=$ANDROID_BINS:$IDEA_BIN:$BUN_BIN:$PATH

@@ -1,5 +1,3 @@
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-
 # Prompt
 #eval "$(starship init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"

@@ -42,5 +42,5 @@ export PATH=$LOCAL_BINS:$RUST_BINS:$PATH
 
 # source mac envs if running on mac
 if [ "$(uname)" = "Darwin" ]; then
-  source $HOME/.config/env_mac
+  source "$HOME/.config/env-mac"
 fi

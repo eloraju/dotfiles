@@ -12,7 +12,7 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = ['exec-and-forget sketchybar', 'exec-and-forget borders']
+after-startup-command = ['exec-and-forget sketchybar', 'exec-and-forget borders', 'exec-and-forget switch_mode main']
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -61,7 +61,7 @@ outer.right =      4
 [exec]                   # Again, you don't need to copy all config sections to your config.
 inherit-env-vars = true  # If you don't touch "exec" section,
 [exec.env-vars]          # it will fallback to "default-config.toml"
-PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${HOME}/.config/aerospace/scripts:${PATH}'
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -130,27 +130,25 @@ ctrl-shift-f9 = 'move-node-to-workspace 9'
 ctrl-shift-f10 = 'move-node-to-workspace 10'
 
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 cmd-ctrl-l = 'focus-monitor --wrap-around next'
 cmd-ctrl-h = 'focus-monitor --wrap-around prev'
 cmd-ctrl-k = 'workspace --wrap-around next'
 cmd-ctrl-j = 'workspace --wrap-around prev'
 
+cmd-shift-ctrl-l = 'move-node-to-monitor --wrap-around next'
+cmd-shift-ctrl-h = 'move-node-to-monitor --wrap-around prev'
+cmd-shift-ctrl-k = 'move-node-to-workspace --wrap-around next'
+cmd-shift-ctrl-j = 'move-node-to-workspace --wrap-around prev'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-cmd-ctrl-shift-s = 'mode service'
+cmd-ctrl-shift-s = 'exec-and-forget switch_mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
-esc = ['reload-config', 'mode main']
+esc = ['reload-config', 'exec-and-forget switch_mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-backspace = ['close-all-windows-but-current', 'mode main']
-
-cmd-shift-h = ['join-with left', 'mode main']
-cmd-shift-j = ['join-with down', 'mode main']
-cmd-shift-k = ['join-with up', 'mode main']
-cmd-shift-l = ['join-with right', 'mode main']
 
 [workspace-to-monitor-force-assignment]
 1 = 'main'

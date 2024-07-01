@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
-
 # run in bash to avoid issues with zsh not being installed yet
+
+# make sure some directories exist so they don't
+# point to this repo
+# e.g. ~/.local/share/zsh/history is someting that shouldn't end up
+# in github
+
+function create_dirs() {
+  [ -d "$HOME/.local/share/zsh" ] || mkdir -p "$HOME/.local/share/zsh"
+  [ -d "$HOME/.local/user/scripts" ] || mkdir -p "$HOME/.local/share/scripts"
+}
 
 delete_flag=
 reset_flag=
@@ -19,21 +28,28 @@ darwin*)
     stow --dotfiles -t "$HOME" -D shared -D mac
   elif [ -n "$reset_flag" ]; then
     echo "Detected macOS. Resetting macOS-specific dotfiles."
-    stow --dotfiles -t "$HOME" -R shared -R mac
+    stow --dotfiles -t "$HOME" -D shared -D mac
+    create_dirs
+    stow --dotfiles -t "$HOME" -S shared -S mac
   else
     echo "Detected macOS. Installing macOS-specific dotfiles."
+    create_dirs
     stow --dotfiles -t "$HOME" shared mac
   fi
   ;;
 linux*)
+  [ -d "$HOME/.local/share/fonts" ] || mkdir -p "$HOME/.local/share/fonts"
   if [ -n "$delete_flag" ]; then
     echo "Detected Linux. Removing dotfiles"
     stow --dotfiles -t "$HOME" -D shared -D linux
   elif [ -n "$reset_flag" ]; then
     echo "Detected Linux. Resetting dotfiles"
-    stow --dotfiles -t "$HOME" -R shared -R linux
+    stow --dotfiles -t "$HOME" -D shared -D linux
+    create_dirs
+    stow --dotfiles -t "$HOME" -S shared -S linux
   else
     echo "Detected Linux. Installing dotfiles"
+    create_dirs
     stow --dotfiles -t "$HOME" shared linux
   fi
   ;;

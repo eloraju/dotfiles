@@ -140,6 +140,9 @@ cmd-shift-ctrl-h = 'move-node-to-monitor --wrap-around prev'
 cmd-shift-ctrl-k = 'move-node-to-workspace --wrap-around next'
 cmd-shift-ctrl-j = 'move-node-to-workspace --wrap-around prev'
 
+cmd-shift-y = 'layout tiles accordion'
+cmd-shift-u = 'layout horizontal vertical'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 cmd-ctrl-shift-s = 'exec-and-forget switch_mode service'
 

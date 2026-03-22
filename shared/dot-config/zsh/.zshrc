@@ -33,41 +33,29 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# this is very mac specific...
-# add brew completions AND completions for commands installed with brew
-if type brew &>/dev/null; then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-fi
-
-# Add hidden files to autocomplete
 autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
 source ~/.config/zsh/npm_completion.zsh
-
-# This loads nvm
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-# This loads nvm bash_completion
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-
 #fzf init
 source <(fzf --zsh)
 
-#???????
-unset PREFIX
+eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
 
-# bun completions
-[ -s "/Users/juuso.elo-rauta/.bun/_bun" ] && source "/Users/juuso.elo-rauta/.bun/_bun"
+# Prompt
+#eval "$(starship init zsh)"
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
 
-# pnpm
-export PNPM_HOME="/Users/juuso.elo-rauta/.local/share/pnpm"
-case ":$PATH:" in
-*":$PNPM_HOME:"*) ;;
-*) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+source ~/.config/env
+source ~/.config/aliasrc
 
+# init mac stuff only on mac
+if [ "$(uname)" = "Darwin" ]; then
+  source "$HOME/.config/zshrc-mac"
+  source "$HOME/.config/env-mac"
+fi
 
 # Start tmux (only for interactive shells)
 if [ -z "$TMUX" ] && [[ -o interactive ]]; then
@@ -79,11 +67,3 @@ if [ -z "$TMUX" ] && [[ -o interactive ]]; then
 
   tmux new-session -A -s "$SESSION_NAME"
 fi
-
-eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
-
-# Prompt
-#eval "$(starship init zsh)"
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
-

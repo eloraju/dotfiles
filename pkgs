@@ -2,11 +2,11 @@ usage
 1password
 bat
 bazecor
-blue-tui
+bluetui
 btop
 docker
 eza
-gostty
+ghostty
 impala
 man-db
 mise
@@ -19,3 +19,6 @@ tmux
 yazi
 nvm
 rustup
+flameshot
+tailscale
+fzf

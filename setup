@@ -11,6 +11,14 @@ function create_dirs() {
   [ -d "$HOME/.local/user/scripts" ] || mkdir -p "$HOME/.local/share/scripts"
 }
 
+function remove_dotfiles() {
+  stow --dotfiles -t "$HOME" --delete shared --delete $1
+}
+
+function set_dotfiles() {
+  stow --dotfiles -t "$HOME" --stow shared --stow $1
+}
+
 delete_flag=
 reset_flag=
 while getopts dr option; do
@@ -21,40 +29,41 @@ while getopts dr option; do
   esac
 done
 
+os=
+install_cmd=
 case $OSTYPE in
 darwin*)
-  if [ -n "$delete_flag" ]; then
-    echo "Detected macOS. Removing macOS-specific dotfiles."
-    stow --dotfiles -t "$HOME" -D shared -D mac
-  elif [ -n "$reset_flag" ]; then
-    echo "Detected macOS. Resetting macOS-specific dotfiles."
-    stow --dotfiles -t "$HOME" -D shared -D mac
-    create_dirs
-    stow --dotfiles -t "$HOME" -S shared -S mac
-  else
-    echo "Detected macOS. Installing macOS-specific dotfiles."
-    create_dirs
-    stow --dotfiles -t "$HOME" shared mac
-  fi
+  echo "Detected macOS"
+  os="mac"
+  install_cmd="brew install"
   ;;
 linux*)
+  echo "Detected linux"
+  os="linux"
+  install_cmd="paru -S"
   [ -d "$HOME/.local/share/fonts" ] || mkdir -p "$HOME/.local/share/fonts"
-  if [ -n "$delete_flag" ]; then
-    echo "Detected Linux. Removing dotfiles"
-    stow --dotfiles -t "$HOME" -D shared -D linux
-  elif [ -n "$reset_flag" ]; then
-    echo "Detected Linux. Resetting dotfiles"
-    stow --dotfiles -t "$HOME" -D shared -D linux
-    create_dirs
-    stow --dotfiles -t "$HOME" -S shared -S linux
-  else
-    echo "Detected Linux. Installing dotfiles"
-    create_dirs
-    stow --dotfiles -t "$HOME" shared linux
-  fi
   ;;
 *)
   echo "What is this OS? '$OSTYPE'"
   exit 1
   ;;
 esac
+
+if [ -n "$delete_flag" ]; then
+  echo "Removing dotfiles"
+  remove_dotfiles "linux"
+  exit 0
+fi
+
+create_dirs
+
+if [ -n "$reset_flag" ]; then
+  echo "Resetting dotfiles"
+  remove_dotfiles "linux"
+fi
+
+echo "Setting up dotfiles"
+set_dotfiles "linux"
+
+echo "Installing packages from ./pkgs"
+$install_cmd $(cat ./pkgs | xargs)

@@ -1,0 +1,43 @@
+[
+  {
+    "name": "mon1",
+    "output": "DP-1",
+    "include": [
+      "~/.config/waybar/modules.json"
+    ],
+    "modules-left": [
+      "custom/omarchy",
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+      "hyprland/window",
+      "custom/update",
+      "custom/screenrecording-indicator"
+    ],
+    "modules-right": [
+      "clock",
+      "bluetooth",
+      "network",
+      "pulseaudio",
+      "cpu",
+      "battery",
+      "group/tray-expander"
+    ]
+  },
+  {
+    "name": "mon2",
+    "output": "DP-2",
+    "include": [
+      "~/.config/waybar/modules.json"
+    ],
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+      "hyprland/window"
+    ],
+    "modules-right": [
+      "clock"
+    ]
+  }
+]

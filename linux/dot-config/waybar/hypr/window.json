@@ -1,0 +1,13 @@
+{
+  "hyprland/window": {
+    "format": "{class} ääää {title}",
+    "separate-outputs": true,
+    "rewrite": {
+      ".*ghostty.*ääää (.*)": "󱙝  $1",
+      ".*web.whatsapp.com$": "  WhatsApp",
+      ".*chrome-youtube.com.* ääää (.*) - YouTube": "  $1",
+      ".*chromium ääää (.*) - Chromium": "󰊯  $1",
+      ".*ääää (.*)": "$1"
+    }
+  }
+}

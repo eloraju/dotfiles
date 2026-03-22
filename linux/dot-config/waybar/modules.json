@@ -1,0 +1,15 @@
+
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "spacing": 0,
+  "height": 26,
+  "include":[
+    "~/.config/waybar/base.json",
+    "~/.config/waybar/tray.json",
+    "~/.config/waybar/hypr/window.json",
+    "~/.config/waybar/hypr/workspaces.json",
+    "~/.config/waybar/custom.json",
+  ],
+}

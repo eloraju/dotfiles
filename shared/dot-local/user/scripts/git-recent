@@ -1,0 +1,4 @@
+#!/bin/bash
+
+previous_count=${1:-10}
+git reflog | rg checkout | cut -d " " -f8 | awk '!seen[$0]++' | rg . | head -$previous_count | cat

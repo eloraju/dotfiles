@@ -1,16 +1,4 @@
 return {
-  { -- Load Copilot before the cmp, just in case. Might switch to copilot.vim if this doesn't work
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    config = function()
-      require('copilot').setup {
-        suggestion = { enabled = true },
-        panel = { enabled = true },
-      }
-    end,
-  },
-
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -27,12 +15,6 @@ return {
           end
           return 'make install_jsregexp'
         end)(),
-      },
-      {
-        'zbirenbaum/copilot-cmp',
-        config = function()
-          require('copilot_cmp').setup()
-        end,
       },
       'saadparwaiz1/cmp_luasnip',
 

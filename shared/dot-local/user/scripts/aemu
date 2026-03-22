@@ -1,4 +1,4 @@
 #!/bin/sh
-
-AVD=$(emulator -list-avds | fzf --tmux center --prompt="Select AVD: " --reverse --border --border-label="Installed AVDs")
-emulator -avd $AVD
+emulator="$HOME/Library/Android/sdk/emulator/emulator"
+AVD=$($emulator -list-avds | fzf --tmux center --prompt="Select AVD: " --reverse --border --border-label="Installed AVDs")
+$emulator -avd $AVD >/dev/null 2>&1 &

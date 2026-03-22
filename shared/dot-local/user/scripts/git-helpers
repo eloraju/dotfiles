@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+if git worktree list | head -n 1 | rg "\(bare\)" &2>/dev/null; then
+	echo "We're in a bare repo setup!"
+else
+	echo "Normal repo setup"
+fi

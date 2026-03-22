@@ -1,8 +1,0 @@
-live_config_reload = true
-
-[window]
-  opacity=1.0
-
-[font]
-  size = 14
-  normal = { family = "ComicShannsMono Nerd Font" }

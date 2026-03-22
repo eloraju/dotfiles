@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+target_branch=$(git branch -a --format='%(refname:short)' | sed -e 's|origin/||' | rg -v HEAD | sort | uniq | fzf --tmux --query ${1:-""})
+
+if [[ -z "$target_branch" ]]; then
+  exit 0
+fi
+
+git switch "$target_branch"

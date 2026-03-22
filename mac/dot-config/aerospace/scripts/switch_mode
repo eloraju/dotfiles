@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-aerospace mode "$1"
-sketchybar --trigger aerospace_mode_change AESP_MODE="$1"

@@ -1,0 +1,127 @@
+#!/usr/bin/env bun
+
+import { $ } from "bun";
+
+type ModelResponse = {
+  data: {
+    id: string;
+    created: number;
+  }[];
+};
+
+type ModelConf = {
+  name: string;
+  limit: {
+    context: number;
+    output: number;
+  };
+};
+
+type OpencodeConf = {
+  provider: {
+    [name: string]: {
+      options: {
+        baseURL: string;
+        apiKey: string;
+      };
+      models: {
+        [modelId: string]: ModelConf;
+      };
+    };
+  };
+};
+
+const modelBaseConf: Omit<ModelConf, "name" | "release_date"> = {
+  limit: {
+    context: 200000,
+    output: 32000,
+  },
+};
+
+const opencodeConf = (
+  await $`echo $HOME/.config/opencode/opencode.json"`.text()
+).trim();
+const conf: OpencodeConf = JSON.parse(
+  await Bun.file(opencodeConf.trim()).text(),
+);
+
+const { baseURL, apiKey } = conf.provider.veikkaus.options;
+
+const resp: ModelResponse = await (
+  await fetch({
+    url: `${baseURL}/models`,
+    headers: {
+      authorization: `Bearer ${apiKey}`,
+    },
+  })
+).json();
+
+const models: { [model: string]: ModelConf } = resp.data.reduce(
+  (acc, model) => {
+    acc[model.id] = {
+      ...modelBaseConf,
+      name: model.id,
+    };
+    return acc;
+  },
+  {} as { [model: string]: ModelConf },
+);
+
+const newConf: OpencodeConf = {
+  ...conf,
+  provider: {
+    ...conf.provider,
+    veikkaus: {
+      ...conf.provider.veikkaus,
+      models,
+    },
+  },
+};
+
+console.log("Writing current models to opencode.json");
+//Bun.write(`${opencodeConf}_bak`, JSON.stringify(conf));
+Bun.write(`${opencodeConf}`, JSON.stringify(newConf));
+
+// OPENCODE_CONF="${HOME}/.config/opencode/opencode.json"
+//
+// typeset -A endpoints
+// endpoints["models"]="List available models"
+//
+// function show_help() {
+//   echo "Usage: $0 <endpoint>"
+//   echo ""
+//   echo "Available endpoints:"
+//   for endpoint in "${(k)endpoints[@]}"; do
+//     printf "  %-20s %s\n" "$endpoint" "${endpoints[$endpoint]}"
+//   done
+// }
+//
+// if [[ -z "${1:-}" ]]; then
+//   show_help
+//   exit 1
+// fi
+//
+// if [[ ! -f "$OPENCODE_CONF" ]]; then
+//   echo "Error: config file not found at $OPENCODE_CONF"
+//   exit 1
+// fi
+//
+// VAI_KEY=$(jq -r ".provider.veikkaus.options.apiKey" "${OPENCODE_CONF}")
+// VAI_URL=$(jq -r ".provider.veikkaus.options.baseURL" "${OPENCODE_CONF}")
+//
+// if [[ -z "$VAI_KEY" || "$VAI_KEY" == "null" ]]; then
+//   echo "Error: apiKey not found in config"
+//   exit 1
+// fi
+//
+// if [[ -z "$VAI_URL" || "$VAI_URL" == "null" ]]; then
+//   echo "Error: baseURL not found in config"
+//   exit 1
+// fi
+//
+// curl \
+//   --fail \
+//   --silent \
+//   --show-error \
+//   -H "Authorization: Bearer ${VAI_KEY}" \
+//   "${VAI_URL}/$1"

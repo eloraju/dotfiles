@@ -1,0 +1,14 @@
+#!/bin/sh
+sim="xcrun simctl"
+lfzf="fzf --tmux center --reverse --border --bind one:accept"
+
+runtimes=$($sim list --json runtimes)
+# fzf --bind one:accept --> automatically accept if there's only one option
+runtime=$(jq -r '.runtimes.[].name' <<< "$runtimes" | $lfzf --prompt="Select runtime to use: " --border-label="Available iOS runtimes")
+
+devices=$($sim list --json devices "$runtime" | jq --compact-output ".devices.[].[]")
+device=$(jq -r ".name" <<< "$devices" | $lfzf --prompt="Select device" --border-label="Available devices")
+
+udid=$(jq -r --arg target "$device" 'select(.name == $target) | .udid' <<< "$devices")
+echo $udid
+$sim boot "$udid"

@@ -182,9 +182,6 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
-      bashls = {
-        filetypes = { 'sh', 'zsh', 'bash' },
-      },
     }
 
     -- Ensure the servers and tools above are installed

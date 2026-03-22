@@ -1,9 +1,3 @@
-source "$HOME/.config/aliasrc"
-source "$HOME/.config/env"
-# Prompt
-#eval "$(starship init zsh)"
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
-
 # set vi mode
 bindkey -v
 
@@ -65,3 +59,31 @@ unset PREFIX
 
 # bun completions
 [ -s "/Users/juuso.elo-rauta/.bun/_bun" ] && source "/Users/juuso.elo-rauta/.bun/_bun"
+
+# pnpm
+export PNPM_HOME="/Users/juuso.elo-rauta/.local/share/pnpm"
+case ":$PATH:" in
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+
+# Start tmux (only for interactive shells)
+if [ -z "$TMUX" ] && [[ -o interactive ]]; then
+  if GIT_PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null); then
+    SESSION_NAME="$(basename \"$GIT_PROJECT_ROOT\" | sed 's/[^[:alnum:]-]//g')"
+  else
+    SESSION_NAME="main"
+  fi
+
+  tmux new-session -A -s "$SESSION_NAME"
+fi
+
+eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
+
+# Prompt
+#eval "$(starship init zsh)"
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
+

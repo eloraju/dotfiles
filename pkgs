@@ -1,13 +1,19 @@
 alacritty
-variety
-arandr
-autorandr
 bat
 btop
 docker
 eza
+gostty
 man-db
-rofi
+mise
+opencode
 ripgrep
 stow
 tealdeer
+#terminal file manager
+yazi
+neovim
+# wifi-tui
+impala
+#bluetooth tui
+blue-tui

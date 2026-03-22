@@ -36,3 +36,9 @@ alias ....="cd ../../.."
 function cd() {
   chdir $1 && ll
 }
+
+alias ji="zi"
+function j() {
+  z $@ && ll
+}
+

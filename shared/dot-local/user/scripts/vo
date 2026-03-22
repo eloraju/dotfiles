@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-sel=$(fd $1 | fzf -m)
-nvim -p $sel

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+branch_name=$(git-recent | fzf --tmux=center --no-multi)
+echo $branch_name
+
+if [ -z $branch_name ]; then
+	exit 0
+fi
+
+git switch "$branch_name"
+

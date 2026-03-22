@@ -6,10 +6,43 @@
 output "DP-1" {
     mode "3840x2160@59.997" // Set resolution and refresh rate
     scale 1 // No scaling (use 2 for HiDPI)
+
+    layout {
+        gaps 6 // Gap between windows
+        center-focused-column "never" // Don’t auto-center focused column
+        always-center-single-column
+
+        background-color "transparent" // <- needed for noctalia-shell to set wallpaper
+
+        preset-column-widths {
+            proportion 0.5
+            proportion 0.5
+        }
+
+        preset-window-heights {
+          proportion 0.333
+          proportion 0.5
+        }
+
+        struts {}
+    }
 }
 //3840x2160@59.997
 output "DP-2" {
     mode "3840x2160@59.997" // Set resolution and refresh rate
     scale 1 // No scaling (use 2 for HiDPI)
     transform "270"
+
+    layout {
+        gaps 6 // Gap between windows
+        center-focused-column "never" // Don’t auto-center focused column
+
+        background-color "transparent" // <- needed for noctalia-shell to set wallpaper
+
+        preset-column-widths {
+            proportion 1.0
+        }
+
+        struts {}
+    }
 }

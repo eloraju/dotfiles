@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# make zsh read configs from ~/.config/zsh instead of ~/
-export ZDOTDIR=$HOME/.config/zsh
-
 export LOCAL_BIN=$HOME/.local/bin
 export USER_BIN=$HOME/.local/user/bin
 export SCRIPTS_DIR=$HOME/.local/user/scripts
@@ -29,11 +26,6 @@ export SUDO_EDITOR=$VISUAL
 
 export KEYTIMEOUT=1
 
-# History stuff
-export HISTFILE="$HOME/.local/share/zsh/history"
-export HISTSIZE=10000
-export SAVEHIST=$HISTSIZE
-#export MANPAGER="sh -c 'col -bx |bat -l man -p'"
 export MANPAGER="nvim +Man!"
 
 export NVM_DIR="$HOME/.nvm"

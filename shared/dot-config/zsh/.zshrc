@@ -1,6 +1,11 @@
 # set vi mode
 bindkey -v
 
+# History stuff
+HISTFILE="$HOME/.local/share/zsh/history"
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+
 setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
 setopt INC_APPEND_HISTORY   # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY        # Share history between all sessions.

@@ -1,0 +1,11 @@
+theme = TokyoNight Storm
+
+font-family = ComicShannsMono Nerd Font Mono
+font-family-bold = ComicShannsMono Nerd Font Mono
+font-family-italic = ComicShannsMono Nerd Font Mono
+font-family-bold-italic = ComicShannsMono Nerd Font Mono
+font-size = 17
+command = /bin/zsh
+working-directory = inherit
+click-repeat-interval = 500
+auto-update-channel = stable

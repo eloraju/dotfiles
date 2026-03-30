@@ -51,7 +51,7 @@ esac
 
 if [ -n "$delete_flag" ]; then
   echo "Removing dotfiles"
-  remove_dotfiles "linux"
+  remove_dotfiles $os
   exit 0
 fi
 
@@ -59,11 +59,16 @@ create_dirs
 
 if [ -n "$reset_flag" ]; then
   echo "Resetting dotfiles"
-  remove_dotfiles "linux"
+  remove_dotfiles $os
 fi
 
 echo "Setting up dotfiles"
-set_dotfiles "linux"
+set_dotfiles $os
 
-echo "Installing packages from ./pkgs"
+echo "Installing shared packages from ./pkgs"
 $install_cmd $(cat ./pkgs | xargs)
+
+if [ "$os" = "linux" ]; then
+  echo "Installing linux spesific packages from ./pkgs-linux"
+  $install_cmd $(cat ./pkgs-linux | xargs)
+fi

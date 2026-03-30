@@ -53,8 +53,8 @@ source ~/.config/aliasrc
 
 # init mac stuff only on mac
 if [ "$(uname)" = "Darwin" ]; then
-  source "$HOME/.config/zshrc-mac"
-  source "$HOME/.config/env-mac"
+  source "$XDG_CONFIG_HOME/zshrc-mac"
+  source "$XDG_CONFIG_HOME/env-mac"
 fi
 
 # Start tmux (only for interactive shells)

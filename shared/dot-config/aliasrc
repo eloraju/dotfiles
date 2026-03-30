@@ -25,14 +25,10 @@ alias gs="git switch"
 alias gsl="git log --abbrev-commit --oneline"
 alias gl="git log"
 alias gnb="git checkout -b"
-alias gam="git commit -am" 
-alias gm="git commit -m" 
-alias gst="git status" 
+alias gam="git commit -am"
+alias gm="git commit -m"
+alias gst="git status"
 
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-
-function cd() {
-  chdir $1 && ll
-}

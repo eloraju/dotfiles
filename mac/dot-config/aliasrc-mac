@@ -1,3 +1,0 @@
-function cd () {
-  /opt/homebrew/bin/zoxide "$@" && ll
-}

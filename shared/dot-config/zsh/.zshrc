@@ -33,21 +33,7 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-autoload -Uz compinit
-compinit
-_comp_options+=(globdots)
-
-source ~/.config/zsh/npm_completion.zsh
-#fzf init
-source <(fzf --zsh)
-
-eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
-
-# Prompt
-#eval "$(starship init zsh)"
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
-
+# Source envs and aliases before trying to init anything
 source ~/.config/env
 source ~/.config/aliasrc
 
@@ -57,6 +43,34 @@ if [ "$(uname)" = "Darwin" ]; then
   source "$XDG_CONFIG_HOME/env-mac"
   source "$XDG_CONFIG_HOME/aliasrc-mac"
 fi
+
+
+source ~/.config/zsh/npm_completion.zsh
+#fzf init
+source <(fzf --zsh)
+
+eval "$(zoxide init zsh --cmd cd)"
+
+# list files on directory change
+function cd() {
+  __zoxide_z "$@" && ll
+}
+
+# helper to reaload zsh config
+function reload-config() {
+  source ~/.config/zsh/.zshrc
+}
+
+eval "$(mise activate zsh)"
+
+# Prompt
+#eval "$(starship init zsh)"
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
+
+# compinit after everything else is setup
+autoload -Uz compinit
+compinit
+_comp_options+=(globdots)
 
 # Start tmux (only for interactive shells)
 if [ -z "$TMUX" ] && [[ -o interactive ]]; then

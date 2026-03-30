@@ -19,12 +19,18 @@ function set_dotfiles() {
   stow --dotfiles -t "$HOME" --stow shared --stow $1
 }
 
+function test_stow() {
+  stow --simulate --dotfiles -t "$HOME" --stow shared --stow $1
+}
+
 delete_flag=
 reset_flag=
-while getopts dr option; do
+test_flag=
+while getopts drt option; do
   case $option in
   d) delete_flag=1 ;;
   r) reset_flag=1 ;;
+  t) test_flag=1 ;;
   *) ;;
   esac
 done
@@ -48,6 +54,11 @@ linux*)
   exit 1
   ;;
 esac
+
+if ! test_stow $os; then
+  echo "Conflicts with stow. Check above."
+  exit 1
+fi
 
 if [ -n "$delete_flag" ]; then
   echo "Removing dotfiles"

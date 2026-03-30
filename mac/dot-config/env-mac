@@ -14,3 +14,7 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"
 PATH=$ANDROID_HOME:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+function cd () {
+  /opt/homebrew/bin/zoxide "$@" && ll
+}

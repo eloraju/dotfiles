@@ -10,7 +10,10 @@ PATH=/Applications/IntelliJ\ IDEA.app/Contents/MacOS:$HOME/Library/Application\ 
 # Android studio stuff
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 
+# Bun
+BUN_BIN=$HOME/.bun/bin/
 # Add android binaries
-PATH=$ANDROID_HOME:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+PATH=$ANDROID_HOME:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$BUN_BIN:$PATH
+
 
 eval "$(/opt/homebrew/bin/brew shellenv)"

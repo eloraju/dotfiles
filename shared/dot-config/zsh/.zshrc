@@ -55,6 +55,7 @@ source ~/.config/aliasrc
 if [ "$(uname)" = "Darwin" ]; then
   source "$XDG_CONFIG_HOME/zshrc-mac"
   source "$XDG_CONFIG_HOME/env-mac"
+  source "$XDG_CONFIG_HOME/aliasrc-mac"
 fi
 
 # Start tmux (only for interactive shells)

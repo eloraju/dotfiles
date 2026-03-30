@@ -42,6 +42,6 @@ export PATH=$LOCAL_BINS:$RUST_BINS:$PATH
 
 export COLORSCHEME="tokyo-night-storm"
 
-if [ -f "$XDG_CONFIG_HOME/coloschemes/$COLORSCHEME" ]; then
-  source "$XDG_CONFIG_HOME/coloschemes/$COLORSCHEME"
+if [ -f "$XDG_CONFIG_HOME/colorschemes/$COLORSCHEME" ]; then
+  source "$XDG_CONFIG_HOME/colorschemes/$COLORSCHEME"
 fi

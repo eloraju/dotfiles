@@ -1,0 +1,12 @@
+local session="${1:?No session provided. Usage: __tmux_switch <session-name> <cwd>}"
+local path="${2:?No path provided. Usage __tmux_switch <session-name> <cwd>}"
+
+if tmux has-session -t "$session" 2>/dev/null; then
+  tmux detach-client -s "$session" 2>/dev/null
+else
+  tmux new-session -ds "$session" -c $path
+fi
+
+if [[ -n "$TMUX" ]]; then
+  tmux switch-client -t "$session"
+fi

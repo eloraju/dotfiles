@@ -5,7 +5,7 @@ requirements = ["apropos", "man"]
 
 [source]
 # List all man pages using apropos
-command = "apropos ."
+command = "man -k ."
 
 [preview]
 # Show the man page for the selected entry

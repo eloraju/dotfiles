@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 export THEME_BG="#24283b"
 export THEME_BG_DARK="#1f2335"
 export THEME_BG_DARK1="#1b1e2d"

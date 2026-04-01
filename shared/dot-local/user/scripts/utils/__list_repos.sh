@@ -1,0 +1,1 @@
+fd --hidden --type d --max-depth 5 --prune --glob .git $HOME/repos/ --exec dirname '{}'

@@ -3,7 +3,8 @@
 export LOCAL_BIN=$HOME/.local/bin
 export USER_BIN=$HOME/.local/user/bin
 export SCRIPTS_DIR=$HOME/.local/user/scripts
-LOCAL_BINS=$LOCAL_BIN:$USER_BIN:$SCRIPTS_DIR
+export UTILS_DIR=$HOME/.local/user/scripts/utils/
+LOCAL_BINS=$LOCAL_BIN:$USER_BIN:$SCRIPTS_DIR:$UTILS_DIR
 
 # XDG DIRS
 export XDG_CONFIG_HOME=$HOME/.config

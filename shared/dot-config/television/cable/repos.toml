@@ -8,7 +8,7 @@ This channel uses `fd` to find directories that contain a `.git` subdirectory, a
 """
 
 [source]
-command = "fd --hidden --type d --max-depth 10 --glob .git $HOME/repos/ --exec dirname '{}'"
+command = "__list_repos"
 display = "{split:/:-1}"
 
 #[preview]
@@ -18,6 +18,6 @@ display = "{split:/:-1}"
 enter = "actions:session"
 
 [actions.session]
-description = "Open a new shell in the selected repository"
-command = "echo '{}'"
+description = "Open a session in the selected repo"
+command = "__tmux_switch_or_create '{split:/:-1}' '{}'"
 mode = "execute"

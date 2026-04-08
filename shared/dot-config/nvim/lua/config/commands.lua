@@ -14,3 +14,9 @@ vim.api.nvim_create_user_command("ChmodX", function()
     vim.notify("Made executable: " .. file, vim.log.levels.INFO)
   end
 end, { desc = "Make current file executable" })
+
+vim.api.nvim_create_user_command("ReloadConf", function()
+  local conf_path = vim.cmd("echo stdpath('config')")
+  vim.cmd(string.format("source %s", conf_path))
+  vim.notify("Config reloaded", vim.log.levels.INFO)
+end, {})

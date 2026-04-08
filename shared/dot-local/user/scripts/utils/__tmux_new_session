@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+session="${1:?No session provided. Usage: __tmux_switch <session-name> <cwd>}"
+path="${2:?No path provided. Usage __tmux_switch <session-name> <cwd>}"
+
+tmux new-session -ds "$session" -c $path
+window=${session}:1
+pane=${window}:1

@@ -58,7 +58,7 @@ eval "$(zoxide init zsh --cmd cd)"
 
 # list files on directory change
 function cd() {
-  __zoxide_z "$@" && ll
+  __zoxide_z "$@" && ll && __tmux_dir_info
 }
 
 # helper to reaload zsh config

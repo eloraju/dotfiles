@@ -7,6 +7,9 @@ if tmux has-session -t "$session" 2>/dev/null; then
   tmux detach-client -s "$session" 2>/dev/null
 else
   tmux new-session -ds "$session" -c $path
+  #window=${session}:1
+  #pane=${window}:1
+  #__tmux_new_session "$session" "$path"
 fi
 
 if [[ -n "$TMUX" ]]; then

@@ -13,6 +13,8 @@ alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
 
+alias pv='NVIM_APPNAME="newvim" nvim'
+
 alias vimdiff="nvim -d"
 alias vd="nvim -d"
 

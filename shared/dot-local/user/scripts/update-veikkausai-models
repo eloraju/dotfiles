@@ -80,7 +80,7 @@ const newConf: OpencodeConf = {
 
 console.log("Writing current models to opencode.json");
 //Bun.write(`${opencodeConf}_bak`, JSON.stringify(conf));
-Bun.write(`${opencodeConf}`, JSON.stringify(newConf));
+Bun.write(`${opencodeConf}`, JSON.stringify(newConf, null, 2));
 
 // OPENCODE_CONF="${HOME}/.config/opencode/opencode.json"
 //

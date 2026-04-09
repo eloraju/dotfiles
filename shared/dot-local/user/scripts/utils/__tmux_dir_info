@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function set_status() {
-  tmux set -g @git_info "  $1 -  $2   "
+  tmux set -g @git_info " $1"
 }
 
 function clear_status() {
@@ -13,7 +13,7 @@ pane_path=$(tmux display-message -p "#{pane_current_path}")
 if git -C "$pane_path" rev-parse --git-dir &>/dev/null; then
   repo=$(basename $(git -C "$pane_path" rev-parse --show-toplevel))
   branch=$(git -C "$pane_path" rev-parse --abbrev-ref HEAD)
-  set_status $repo $branch
+  set_status $branch
 else
   clear_status
 fi

@@ -1,6 +1,6 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-result=$({ __list_repos; tmux list-sessions -F "#S" } | fzf --delimiter / --with-nth -1 --tmux --print-query)
+result=$({ __list_repos; tmux list-sessions -F "#S"; } | fzf --delimiter / --with-nth -1 --tmux --print-query)
 query=$(echo "$result" | head -1)
 start_dir=$(echo "$result" | tail -n +2)
 session_name=$(basename "$start_dir")

@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-result=$(tmux list-sessions -F "#S" | fzf)
-echo "$result"

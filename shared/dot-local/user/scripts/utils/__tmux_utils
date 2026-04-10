@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+list_repos() {
+  fd --hidden --type d --max-depth 5 --prune --glob .git $HOME/repos/ --exec dirname '{}'
+}
+
+new_session() {
+  result=$(tmux list-sessions -F "#S" | fzf)
+  echo "$result"
+}
+
+switch_or_create() {
+  session="${1:?No session provided. Usage: tmux_switch_or_create <session-name> <cwd>}"
+
+  if tmux has-session -t "$session" 2>/dev/null; then
+    tmux detach-client -s "$session" 2>/dev/null
+  else
+    start_dir="${2:?No path provided. Usage: tmux_switch_or_create <session-name> <cwd>}"
+    tmux new-session -ds "$session" -c $start_dir
+    tmux split -t "${session}:1" -h -c $start_dir
+  fi
+
+  if [[ -n "$TMUX" ]]; then
+    tmux switch-client -t "$session"
+  fi
+}
+
+git_branch() {
+  pane_path=$(tmux display-message -p "#{pane_current_path}")
+
+  if git -C "$pane_path" rev-parse --git-dir &>/dev/null; then
+    branch=$(git -C "$pane_path" rev-parse --abbrev-ref HEAD)
+    tmux set -g @git_info " $branch"
+  else
+    tmux set -g @git_info ""
+  fi
+}
+
+"$@"

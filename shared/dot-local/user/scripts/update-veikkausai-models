@@ -45,7 +45,9 @@ const conf: OpencodeConf = JSON.parse(
   await Bun.file(opencodeConf.trim()).text(),
 );
 
-const { baseURL, apiKey } = conf.provider.veikkaus.options;
+const { baseURL, apiKey: onepasswordId } = conf.provider.veikkaus.options;
+const apiKey =
+  await $`op item get ${onepasswordId} --fields "key" --reveal`.text();
 
 const resp: ModelResponse = await (
   await fetch({

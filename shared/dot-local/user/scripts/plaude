@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+VPN_URL="http://100.115.27.17:11434"
+
+DISABLE_TELEMETRY=1 \
+  ANTHROPIC_AUTH_TOKEN=ollama \
+  ANTHROPIC_DEFAULT_SONNET_MODEL=gemma4:latest \
+  ANTHROPIC_BASE_URL="${VPN_URL}" \
+  claude --settings '{"availableModels":["gemma4:latest","gemma4:31b"]}'

@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
 session="${1:?No session provided. Usage: __tmux_switch <session-name> <cwd>}"
-path="${2:?No path provided. Usage __tmux_switch <session-name> <cwd>}"
 
 if tmux has-session -t "$session" 2>/dev/null; then
   tmux detach-client -s "$session" 2>/dev/null
 else
-  tmux new-session -ds "$session" -c $path
-  #window=${session}:1
-  #pane=${window}:1
-  #__tmux_new_session "$session" "$path"
+  start_dir="${2:?No path provided. Usage __tmux_switch <session-name> <cwd>}"
+  tmux new-session -ds "$session" -c $start_dir
+  tmux split -t "${session}:1" -h -c $start_dir
 fi
 
 if [[ -n "$TMUX" ]]; then

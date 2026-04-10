@@ -1,8 +1,18 @@
 #!/usr/bin/env zsh
 
-selection=$(__list_repos | fzf --delimiter / --with-nth -1 --tmux)
-if [ -z "$selection" ]; then
+result=$({ __list_repos; tmux list-sessions -F "#S" } | fzf --delimiter / --with-nth -1 --tmux --print-query)
+query=$(echo "$result" | head -1)
+start_dir=$(echo "$result" | tail -n +2)
+session_name=$(basename "$start_dir")
+
+if [ -z "$query" ] && [ -z "$start_dir" ]; then 
   exit 0
 fi
-__tmux_switch_or_create $(basename "$selection") "$selection"
+  
+if [ -z "$start_dir" ]; then
+  session_name="$query"
+fi
+
+
+__tmux_switch_or_create "$session_name" "${start_dir:-$HOME}"
 

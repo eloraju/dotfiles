@@ -10,6 +10,7 @@ blocks:
     newline: true
     segments:
       - type: session
+        style: "plain"
         foreground: p:white
         background: transparent
         template: "{{ if .SSHSession }}({{ .HostName }}){{ end }} "
@@ -19,24 +20,33 @@ blocks:
         foreground: cyan
         background: transparent
         template: "{{ path .Path .Location }} "
-        properties:
+        options:
           style: full
 
+      - type: python
+        style: plain
+        template: "{{- if .Venv }}(VE: {{ .Venv }}){{ end }}"
+        options:
+          fetch_virtual_env: true
+          display_default: true
+          folder_name_fallback: true
+          display_mode: always
+
       - type: git
+        style: plain
         foreground: p:purple
         background: transparent
-        template: "{{ if gt .Behind 0 }}<red>↓</>{{ end }}{{ if gt .Ahead 0
-          }}<red>↑</>{{ end }}{{ .HEAD }}{{ if gt .StashCount 0}}<red>$</>{{ end
-          }}{{ if .Working.Changed }}<red>[{{ if gt .Working.Modified 0 }}!{{
-          end }}{{ if gt .Working.Deleted 0 }}-{{ end }}{{ if gt .Working.Added
-          0 }}+{{ end }}{{ if gt .Working.Untracked 0 }}?{{ end }}]</>{{ end
-          }}{{ if or (.Staging.Changed) }}<yellow>[{{ if gt .Staging.Modified 0
-          }}!{{ end }}{{ if gt .Staging.Deleted 0 }}-{{ end }}{{ if gt
-          .Staging.Added 0 }}+{{ end }}]</>{{ end }}"
-        properties:
+        template: >-
+          󰊢 {{ if gt .Behind 0 }}<red>↓</>{{ end }}
+          {{- if gt .Ahead 0 }}<red>↑</>{{end}}
+          {{- .HEAD }}
+          {{- if gt .StashCount 0}}<red>$</>{{end}}
+          {{ if .Working.Changed }}<red>[{{ .Working.String }}]</>{{ end }}
+          {{- if .Staging.Changed }}<yellow>[{{ .Staging.String }}]</>{{ end }}
+        options:
           commit_icon: "@"
           branch_icon: ""
-          branch_max_length: 25
+          #branch_max_length: 25
           fetch_status: true
           fetch_upstream_icon: true
           status_formats:
@@ -51,6 +61,7 @@ blocks:
     newline: true
     segments:
       - type: text
+        style: plain
         foreground_templates:
           - "{{ if gt .Code 0 }}red{{ end }}"
           - "{{ if eq .Code 0 }}green{{ end }}"

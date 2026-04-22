@@ -17,7 +17,7 @@ switch_or_create() {
   else
     start_dir="${2:?No path provided. Usage: tmux_switch_or_create <session-name> <cwd>}"
     tmux new-session -ds "$session" -c $start_dir
-    tmux split -t "${session}:1" -h -c $start_dir
+    tmux split -t "${session}:1" -hb -c $start_dir
   fi
 
   if [[ -n "$TMUX" ]]; then
@@ -34,6 +34,31 @@ git_branch() {
   else
     tmux set -g @git_info ""
   fi
+}
+
+init_repo() {
+  tmux display-menu \
+    "New repo" "n" "run-shell '__tmux_utils select_repo_path create_repo'" \
+    "Clone a repo" "c" "run-shell '__tmux_utils select_repo_path clone_repo'"
+}
+
+select_repo_path() {
+  tmux display-menu \
+    "Own" "o" "run-shell '__tmux_utils $1 $HOME/repos/o'" \
+    "Client" "c" "run-shell '__tmux_utils $1 $HOME/repos/clients'" \
+    "WD" "w" "run-shell '__tmux_utils $1 $HOME/repos/wd'"
+}
+
+clone_repo() {
+  #git clone $1 -o $2
+  echo should clone repo now to $1
+}
+
+create_repo() {
+  fzf --print-query --no-info --tmux
+  echo should create new dir now to $1
+  #mkdir -p $1/$2
+  # Switch to new session
 }
 
 "$@"

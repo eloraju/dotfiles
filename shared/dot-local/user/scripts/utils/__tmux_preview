@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+function _msg() {
+  tmux display-message $1
+}
+
+function preview() {
+  session=""
+  if session=$(tmux ls -F "#S:#{window_id}" | rg $1); then
+    tmux capture-pane -ep -t "$(echo $session | awk '{print $1}')"
+  else
+    eza -la --group-directories-first --git --color="always" $2
+  fi
+}
+
+function label() {
+  if tmux ls -F "#S:#{window_id}" | rg "$1" &>/dev/null; then
+    echo "Active session pane"
+  else
+    echo "New session from ${2}"
+  fi
+
+}
+
+function new_session_preview() {
+  cat <<END
+    ===== New session =====
+    Name: $2
+    CWD: $HOME
+END
+}
+
+function new_session_label() {
+  echo "New session from ~/"
+}
+
+"$@"

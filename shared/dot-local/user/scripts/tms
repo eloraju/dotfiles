@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
 source __tmux_utils
 
+FZF_ARGS=(
+  --delimiter /
+  --with-nth -1
+  --tmux
+  --print-query
+  --preview-window right,75%
+  --preview-label-pos 5
+  --bind "focus:transform-preview-label(__tmux_preview label {-1} {})+preview(__tmux_preview preview {-1} {})"
+  --bind "zero:transform-preview-label(__tmux_preview new_session_label)+preview(__tmux_preview new_session_preview {q})"
+  --bind "load:transform-preview-label(__tmux_preview label {-1} {})"
+)
+
 result=$({
   list_repos
   tmux list-sessions -F "#S"
-} | fzf --delimiter / --with-nth -1 --tmux --print-query)
+} | fzf "${FZF_ARGS[@]}")
 
 query=$(echo "$result" | head -1)
 start_dir=$(echo "$result" | tail -n +2)

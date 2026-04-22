@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+declare -A templates
+declare -A flags
+
+templates["cargo"]="cargo init"
+templates["bun"]="bun init"
+templates["zig"]="zig init"
+
+usage() {
+  echo <<END
+Usage: initr <REPO-NAME> [options]"
+
+Options
+  -t, --template <TEMPLATE>   Initialize repo with given template from available template
+
+Templates
+  cargo                       Rust project with Cargo
+  bun                         TypeScript project with Bun
+  zig                         Zig project
+END
+}
+
+# $1template
+[[ -z $1 ]] && echo "No repo name given" && usage && exit 1
+for var in "$@"; do
+  echo $var
+done

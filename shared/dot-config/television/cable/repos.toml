@@ -8,7 +8,7 @@ This channel uses `fd` to find directories that contain a `.git` subdirectory, a
 """
 
 [source]
-command = "__list_repos"
+command = "__tmux_utils list_repos"
 display = "{split:/:-1}"
 
 #[preview]

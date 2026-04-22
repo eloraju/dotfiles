@@ -70,7 +70,7 @@ eval "$(mise activate zsh)"
 
 # Prompt
 #eval "$(starship init zsh)"
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.toml)"
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.yml)"
 
 # compinit after everything else is setup
 autoload -Uz compinit

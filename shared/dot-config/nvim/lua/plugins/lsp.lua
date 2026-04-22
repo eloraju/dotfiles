@@ -1,13 +1,19 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    inlay_hints = { enabled = false },
+    ui = {
+      windows = {
+        default_options = {
+          border = "rounded",
+        },
+      },
+    },
     servers = {
-      lua_ls = {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { vim },
-            },
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { vim },
           },
         },
       },

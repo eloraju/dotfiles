@@ -25,6 +25,12 @@ switch_or_create() {
   fi
 }
 
+new_pane() {
+  pane_count=$(tmux display-message -p "#{window_panes}")
+  tmux split-window -v -c "#{pane_current_path}" -t "$pane_count"
+  tmux select-layout -E
+}
+
 git_branch() {
   pane_path=$(tmux display-message -p "#{pane_current_path}")
 

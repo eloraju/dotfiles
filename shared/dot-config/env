@@ -27,6 +27,14 @@ export SUDO_EDITOR=$VISUAL
 
 export KEYTIMEOUT=1
 
+# https://www.reddit.com/r/neovim/comments/1k1k9bz/use_neovim_as_the_default_man_page_viewer/
+# Note: when running man from the shell with Nvim as $MANPAGER, man will
+# pre-format the manpage using groff, and Nvim will display the manual page as
+# it was received from stdin (it can't "undo" the hard-wrap caused by
+# man/groff). To prevent man/groff from hard-wrapping the manpage, you can set
+# $MANWIDTH=999 in your environment.
+
+export MANWIDTH=999
 export MANPAGER="nvim +Man!"
 
 export NVM_DIR="$HOME/.nvm"

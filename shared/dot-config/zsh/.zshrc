@@ -72,6 +72,8 @@ eval "$(mise activate zsh)"
 #eval "$(starship init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.yml)"
 
+eval "$(op completion zsh)"
+
 # compinit after everything else is setup
 autoload -Uz compinit
 compinit
@@ -85,5 +87,5 @@ if [ -z "$TMUX" ] && [[ -o interactive ]]; then
     SESSION_NAME="main"
   fi
 
-  tmux new-session -A -s "$SESSION_NAME"
+  tmux new-session -A -s "$SESSION_NAME" -c $HOME
 fi

@@ -1,19 +1,14 @@
+#!/usr/bin/env bash
 # Mac specific environment variables
 
 # Android studio stuff
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-ANDROID="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools"
-
-# Add intellij idea to path
-PATH=/Applications/IntelliJ\ IDEA.app/Contents/MacOS:$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
-
-# Android studio stuff
-export ANDROID_HOME="$HOME/Library/Android/sdk"
+ANDROID_STUFF="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin"
 
 # Bun
 BUN_BIN=$HOME/.bun/bin/
 # Add android binaries
-PATH=$ANDROID_HOME:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$BUN_BIN:$PATH
+PATH=$ANDROID_STUFF:$BUN_BIN:$PATH
 
 
 eval "$(/opt/homebrew/bin/brew shellenv)"

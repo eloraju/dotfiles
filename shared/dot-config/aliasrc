@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 alias ls="eza"
 alias la="eza -la --group-directories-first --git"

@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+input() {
+  local title="$1" placeholder="$2"
+  shift 2
+
+  local delimiter=""
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+    -d | --delimiter)
+      delimiter="$2"
+      shift 2
+      ;;
+    *) shift ;;
+    esac
+  done
+
+  local result_file
+  result_file=$(mktemp /tmp/tmux-input.XXXXXX)
+
+  local gum_cmd="gum input --padding '1 1' --no-show-help"
+  [[ -n "$placeholder" ]] && gum_cmd+=" --placeholder $(printf '%q' "$placeholder")"
+  gum_cmd+=" > $result_file"
+
+  local popup_args=(-E -w 30% -h 5 -b rounded -S "fg=$LOCAL_THEME_TEAL")
+  [[ -n "$title" ]] && popup_args+=(-T " $title")
+
+  tmux display-popup "${popup_args[@]}" "$gum_cmd"
+
+  local result
+  result=$(cat "$result_file" 2>/dev/null)
+
+  if [[ -n "$delimiter" ]]; then
+    result=$(echo "$result" | awk -v delim="$delimiter" '{ gsub(/^ +| +$/, ""); gsub(/ +/, delim); print }')
+  fi
+
+  rm -f "$result_file"
+  [[ -z "$result" ]] && return 1
+  printf '%s' "$result"
+}
+
+path() {
+  local title="$1"
+
+  local result_file
+  result_file=$(mktemp /tmp/tmux-input.XXXXXX)
+
+  local popup_args=(-E -w 20% -h 25% -b rounded -S "fg=$LOCAL_THEME_TEAL")
+  [[ -n "$title" ]] && popup_args+=(-T " $title")
+
+  tmux display-popup "${popup_args[@]}" \
+    "tmux new-session -e YAZI_CONFIG_HOME=$HOME/.config/yazi/popup -c $HOME 'yazi --chooser-file=$result_file' \; set status off"
+
+  local result
+  result=$(cat "$result_file" 2>/dev/null)
+  rm -f "$result_file"
+  [[ -z "$result" ]] && return 1
+  printf '%s' "$result"
+}
+
+# --- top-level dispatch ---
+subcommand="$1"
+shift
+
+title=""
+placeholder=""
+remaining=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  -t | --title)
+    title="$2"
+    shift 2
+    ;;
+  -p | --placeholder)
+    placeholder="$2"
+    shift 2
+    ;;
+  *)
+    remaining+=("$1")
+    shift
+    ;;
+  esac
+done
+
+"$subcommand" "$title" "$placeholder" "${remaining[@]}"

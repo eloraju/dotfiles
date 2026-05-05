@@ -23,6 +23,7 @@ type OpencodeConf = {
       options: {
         baseURL: string;
         apiKey: string;
+        apiKeyId: string;
       };
       models: {
         [modelId: string]: ModelConf;
@@ -45,9 +46,9 @@ const conf: OpencodeConf = JSON.parse(
   await Bun.file(opencodeConf.trim()).text(),
 );
 
-const { baseURL, apiKey: onepasswordId } = conf.provider.veikkaus.options;
+const { baseURL, apiKeyId: onepasswordId } = conf.provider.veikkaus.options;
 const apiKey =
-  await $`op item get ${onepasswordId} --fields "key" --reveal`.text();
+  await $`op read "op://Veikkaus/VeikkausAI API key/value"`.text();
 
 const resp: ModelResponse = await (
   await fetch({
@@ -83,47 +84,3 @@ const newConf: OpencodeConf = {
 console.log("Writing current models to opencode.json");
 //Bun.write(`${opencodeConf}_bak`, JSON.stringify(conf));
 Bun.write(`${opencodeConf}`, JSON.stringify(newConf, null, 2));
-
-// OPENCODE_CONF="${HOME}/.config/opencode/opencode.json"
-//
-// typeset -A endpoints
-// endpoints["models"]="List available models"
-//
-// function show_help() {
-//   echo "Usage: $0 <endpoint>"
-//   echo ""
-//   echo "Available endpoints:"
-//   for endpoint in "${(k)endpoints[@]}"; do
-//     printf "  %-20s %s\n" "$endpoint" "${endpoints[$endpoint]}"
-//   done
-// }
-//
-// if [[ -z "${1:-}" ]]; then
-//   show_help
-//   exit 1
-// fi
-//
-// if [[ ! -f "$OPENCODE_CONF" ]]; then
-//   echo "Error: config file not found at $OPENCODE_CONF"
-//   exit 1
-// fi
-//
-// VAI_KEY=$(jq -r ".provider.veikkaus.options.apiKey" "${OPENCODE_CONF}")
-// VAI_URL=$(jq -r ".provider.veikkaus.options.baseURL" "${OPENCODE_CONF}")
-//
-// if [[ -z "$VAI_KEY" || "$VAI_KEY" == "null" ]]; then
-//   echo "Error: apiKey not found in config"
-//   exit 1
-// fi
-//
-// if [[ -z "$VAI_URL" || "$VAI_URL" == "null" ]]; then
-//   echo "Error: baseURL not found in config"
-//   exit 1
-// fi
-//
-// curl \
-//   --fail \
-//   --silent \
-//   --show-error \
-//   -H "Authorization: Bearer ${VAI_KEY}" \
-//   "${VAI_URL}/$1"

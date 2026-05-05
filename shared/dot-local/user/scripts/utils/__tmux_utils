@@ -5,8 +5,7 @@ list_repos() {
 }
 
 new_session() {
-  result=$(tmux list-sessions -F "#S" | fzf)
-  echo "$result"
+  result=$(tmux list-sessions -F "#S" | fzf --tmux)
 }
 
 switch_or_create() {
@@ -17,7 +16,7 @@ switch_or_create() {
   else
     start_dir="${2:?No path provided. Usage: tmux_switch_or_create <session-name> <cwd>}"
     tmux new-session -ds "$session" -c $start_dir
-    tmux split -t "${session}:1" -hb -c $start_dir
+    tmux split -t "${session}:2" -hb -c $start_dir
     tmux send-keys -t "${session}:1" "v ." Enter
   fi
 

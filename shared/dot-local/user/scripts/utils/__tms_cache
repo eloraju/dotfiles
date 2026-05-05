@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+
+SESSIONS_FILE="$HOME/.local/cache/tmux-sessions"
+
+SESSIONS_TEMPLATE="# tmux-sessions cache
+# format: type;name;path;active;icon
+#
+# types:
+#   ssh    remote SSH session                     path = user@host
+#   repo   local repo project directory
+#   dir    plain local directory
+#
+# examples:
+# ssh;server1;user@server1.example.com;false;
+# repo;dotfiles;~/repos/dotfiles;false;
+# dir;scratch;~/scratch;false;"
+
+_cache_exists() {
+  if [[ ! -f "$SESSIONS_FILE" ]]; then
+    echo "Session cache doesn't exist. Add a new session to initialize the cache" >&2
+    return 1
+  fi
+  return 0
+}
+
+_add_automatic() {
+  # TODO: Try to determine type from cwd, default to dir. --path=$(pwd) --name=$(basename $(pwd))
+  local name=$(basename $(pwd))
+  local path=$(pwd)
+  echo "Creating session with name '$name' with starting dir '${path}'"
+}
+
+add() {
+  if [[ $# -eq 0 ]]; then
+    _add_automatic
+    return
+  fi
+
+  local type="$1"
+  shift
+
+  local name="" path="" icon="" active="false"
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -n | --name)
+      name="$2"
+      shift 2
+      ;;
+    -p | --path)
+      path="$2"
+      shift 2
+      ;;
+    -i | --icon)
+      icon="$2"
+      shift 2
+      ;;
+    -a | --active)
+      active="$2"
+      shift 2
+      ;;
+    *) shift ;;
+    esac
+  done
+
+  if [[ ! -d "$(dirname "$SESSIONS_FILE")" ]]; then
+    mkdir -p "$(dirname "$SESSIONS_FILE")"
+    printf '%s\n' "$SESSIONS_TEMPLATE" >"$SESSIONS_FILE"
+  elif [[ -f "$SESSIONS_FILE" ]] && awk -F';' -v n="$name" '!/^#/ && $2 == n { found=1; exit } END { exit !found }' "$SESSIONS_FILE"; then
+    echo "Session with name '${name}' already exists" >&2
+    return 1
+  fi
+
+  local fields=("$type" "$name" "$path" "$active" "$icon")
+  local IFS=';'
+  printf '%s\n' "${fields[*]}" >>"$SESSIONS_FILE"
+}
+
+remove() {
+  local name="$1"
+
+  _cache_exists || return 1
+
+  if ! awk -F';' -v n="$name" '!/^#/ && $2 == n { found=1; exit } END { exit !found }' "$SESSIONS_FILE"; then
+    echo "Session with name '${name}' doesn't exist" >&2
+    return 1
+  fi
+
+  local tmp
+  tmp=$(mktemp)
+  awk -F';' -v n="$name" '/^#/ || $2 != n' "$SESSIONS_FILE" >"$tmp"
+  mv "$tmp" "$SESSIONS_FILE"
+}
+
+activate() {
+  local name="$1"
+
+  _cache_exists || return 1
+
+  local tmp
+  tmp=$(mktemp)
+  awk -F';' -v OFS=';' -v n="$name" '!/^#/ && $2 == n { $4 = "true" } { print }' "$SESSIONS_FILE" >"$tmp"
+  mv "$tmp" "$SESSIONS_FILE"
+}
+
+deactivate() {
+  local name="$1"
+
+  _cache_exists || return 1
+
+  local tmp
+  tmp=$(mktemp)
+  awk -F';' -v OFS=';' -v n="$name" '!/^#/ && $2 == n { $4 = "false" } { print }' "$SESSIONS_FILE" >"$tmp"
+  mv "$tmp" "$SESSIONS_FILE"
+}
+
+list() {
+  _cache_exists || return 1
+
+  if [[ $(grep -vc '^#' "$SESSIONS_FILE") -eq 0 ]]; then
+    echo "Session cache is empty" >&2
+  fi
+  grep -v '^#' "$SESSIONS_FILE"
+}
+
+get() {
+  local name="$1"
+
+  _cache_exists || return 1
+
+  local result
+  result=$(awk -F';' -v n="$name" '!/^#/ && $2 == n' "$SESSIONS_FILE")
+  if [[ -z "$result" ]]; then
+    echo "Couldn't find session with name '${name}'" >&2
+    return 1
+  fi
+
+  echo "$result"
+}
+
+"$@"

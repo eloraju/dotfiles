@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+URL_PATTERN='https?://[^ \t\n\r"'"'"'<>()]*'
+
+strip_trailing_punctuation() {
+    printf '%s' "$1" | sed 's/[.,;:!?'"'"'")}\]]*$//'
+}
+
+find_url() {
+    local line="$1" cursor_x="$2"
+    local best_url="" min_dist=99999
+
+    while IFS= read -r entry; do
+        [[ -z "$entry" ]] && continue
+        local start="${entry%%:*}"
+        local url
+        url=$(strip_trailing_punctuation "${entry#*:}")
+        [[ -z "$url" ]] && continue
+        local end=$(( start + ${#url} - 1 ))
+
+        if (( cursor_x >= start && cursor_x <= end )); then
+            echo "$url"
+            return
+        fi
+
+        local dist
+        (( cursor_x < start )) && dist=$(( start - cursor_x )) || dist=$(( cursor_x - end ))
+        if (( dist < min_dist )); then
+            min_dist=$dist
+            best_url="$url"
+        fi
+    done < <(printf '%s' "$line" | grep -boE "$URL_PATTERN")
+
+    echo "$best_url"
+}
+
+open_url() {
+    if [[ "$(uname)" == "Darwin" ]]; then
+        open "$1"
+    else
+        xdg-open "$1" &>/dev/null &
+    fi
+}
+
+cursor_x=$(tmux display-message -p "#{copy_cursor_x}")
+cursor_y=$(tmux display-message -p "#{copy_cursor_y}")
+line=$(tmux capture-pane -p | sed -n "$((cursor_y + 1))p")
+
+url=$(find_url "$line" "$cursor_x")
+tmux send-keys -X cancel
+
+if [[ -z "$url" ]]; then
+    tmux display-message "No URL found"
+    exit 0
+fi
+
+open_url "$url"

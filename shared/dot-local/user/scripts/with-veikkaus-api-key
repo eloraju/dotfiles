@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+VEIKKAUS_AI=$(op read "op://Veikkaus/VeikkausAI Api key/value") "$@"

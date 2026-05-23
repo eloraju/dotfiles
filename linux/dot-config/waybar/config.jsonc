@@ -6,13 +6,10 @@
       "~/.config/waybar/modules.json"
     ],
     "modules-left": [
-      "custom/omarchy",
       "hyprland/workspaces"
     ],
     "modules-center": [
       "hyprland/window",
-      "custom/update",
-      "custom/screenrecording-indicator"
     ],
     "modules-right": [
       "clock",

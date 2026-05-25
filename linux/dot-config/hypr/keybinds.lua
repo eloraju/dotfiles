@@ -14,17 +14,20 @@ local netowrk = "impala"
 ---------------------
 
 local Mod = "SUPER + " -- Sets "Windows" key as main modifier
-local SMod = "SUPER + SHIFT + "
-local CtrlSMod = "SUPER + CTRL + SHIFT +"
+local Shift = "SHIFT + "
+local Ctrl = "CTRL + "
+local SMod = Mod .. Shift
+local CMod = Mod .. Ctrl
+local CSMod = SMod .. Ctrl
 
 local quitHyprland = "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(Mod .. "Return", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(SMod .. "Q", hl.dsp.window.close())
--- closeWindowBind:set_enabled(false)
+hl.bind(SMod .. "Q", hl.dsp.window.close())
 hl.bind(Mod .. "M", hl.dsp.exec_cmd(quitHyprland))
-hl.bind(CtrlSMod .. "Q", hl.dsp.exec_cmd(quitHyprland))
+hl.bind(CSMod .. "Q", hl.dsp.exec_cmd(quitHyprland))
+hl.bind(CMod .. "L", hl.dsp.exec_cmd("systemctl suspend"))
 hl.bind(Mod .. "E", hl.dsp.exec_cmd(fileManager))
 hl.bind(Mod .. "V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(SMod .. "Return", hl.dsp.exec_cmd(menu))
@@ -41,6 +44,11 @@ hl.bind(SMod .. "H", hl.dsp.window.move({ direction = "left" }))
 hl.bind(SMod .. "L", hl.dsp.window.move({ direction = "right" }))
 hl.bind(SMod .. "K", hl.dsp.window.move({ direction = "up" }))
 hl.bind(SMod .. "J", hl.dsp.window.move({ direction = "down" }))
+
+-- Switch monitor
+hl.bind(Mod .. "O", hl.dsp.focus({ monitor = "+1" }))
+-- Move window to monitor
+hl.bind(SMod .. "O", hl.dsp.window.move({ monitor = "+1" }))
 
 -- Applications
 hl.bind(SMod .. "B", hl.dsp.exec_cmd("impala")) --needs a floating terminal

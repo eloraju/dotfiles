@@ -1,3 +1,4 @@
+require("workspaces")
 require("autostart")
 require("keybinds")
 require("monitors")
@@ -5,7 +6,6 @@ require("permissions")
 require("input")
 require("looknfeel")
 require("animations")
-require("workspaces")
 require("layouts")
 require("windowrules")
 

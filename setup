@@ -26,11 +26,13 @@ function test_stow() {
 delete_flag=
 reset_flag=
 test_flag=
-while getopts drt option; do
+skip_flag
+while getopts drts option; do
   case $option in
   d) delete_flag=1 ;;
   r) reset_flag=1 ;;
   t) test_flag=1 ;;
+  s) skip_flag=1 ;;
   *) ;;
   esac
 done
@@ -75,6 +77,11 @@ fi
 
 echo "Setting up dotfiles"
 set_dotfiles $os
+
+if [[ -n $skip_flag ]]; then
+  echo "Skipping installation"
+  exit 0
+fi
 
 echo "Installing shared packages from ./pkgs"
 $install_cmd $(cat ./pkgs | xargs)

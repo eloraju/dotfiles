@@ -17,6 +17,7 @@ require("windowrules")
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("PATH", "/home/juuso/.bin:" .. (os.getenv("PATH") or ""))
 ----------------
 ----  MISC  ----
 ----------------

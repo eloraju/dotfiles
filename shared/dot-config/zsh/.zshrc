@@ -74,11 +74,6 @@ eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/prompt.yml)"
 
 eval "$(op completion zsh)"
 
-# compinit after everything else is setup
-autoload -Uz compinit
-compinit
-_comp_options+=(globdots)
-
 # Start tmux (only for interactive shells)
 if [ -z "$TMUX" ] && [[ -o interactive ]]; then
   if GIT_PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null); then
@@ -89,3 +84,9 @@ if [ -z "$TMUX" ] && [[ -o interactive ]]; then
 
   tmux new-session -A -s "$SESSION_NAME" -c $HOME
 fi
+
+# compinit after everything else is setup
+autoload -Uz compinit
+compinit
+_comp_options+=(globdots)
+

@@ -8,7 +8,7 @@
 
 function create_dirs() {
   [ -d "$HOME/.local/share/zsh" ] || mkdir -p "$HOME/.local/share/zsh"
-  [ -d "$HOME/.local/user/scripts" ] || mkdir -p "$HOME/.local/share/scripts"
+  [ -d "$HOME/.bin" ] || mkdir -p "$HOME/.bin"
 }
 
 function remove_dotfiles() {
@@ -16,7 +16,7 @@ function remove_dotfiles() {
 }
 
 function set_dotfiles() {
-  stow --dotfiles -t "$HOME" --stow shared --stow $1
+  stow --dotfiles -t "$HOME" --stow shared --stow $1 -vvv
 }
 
 function test_stow() {
@@ -26,7 +26,7 @@ function test_stow() {
 delete_flag=
 reset_flag=
 test_flag=
-skip_flag
+skip_flag=
 while getopts drts option; do
   case $option in
   d) delete_flag=1 ;;

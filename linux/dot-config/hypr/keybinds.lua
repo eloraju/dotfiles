@@ -51,7 +51,7 @@ hl.bind(Mod .. "O", hl.dsp.focus({ monitor = "+1" }))
 hl.bind(SMod .. "O", hl.dsp.window.move({ monitor = "+1" }))
 
 -- Applications
-hl.bind(SMod .. "B", hl.dsp.exec_cmd("impala")) --needs a floating terminal
+hl.bind(SMod .. "W", hl.dsp.exec_cmd("impala")) --needs a floating terminal
 hl.bind(SMod .. "B", hl.dsp.exec_cmd("bluetui")) --needs a floating terminal
 
 -- Switch workspaces with mainMod + [0-9]

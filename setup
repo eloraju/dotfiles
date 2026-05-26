@@ -16,7 +16,7 @@ function remove_dotfiles() {
 }
 
 function set_dotfiles() {
-  stow --dotfiles -t "$HOME" --stow shared --stow $1 -vvv
+  stow --dotfiles -t "$HOME" --stow shared --stow $1
 }
 
 function test_stow() {

@@ -35,3 +35,12 @@ hl.window_rule({
 	move = "20 monitor_h-120",
 	float = true,
 })
+
+-- Float and center popup TUI applications
+hl.window_rule({
+	name = "float-poptui",
+	match = { class = "poptui.*" },
+	float = true,
+	center = true,
+	size = { "(monitor_w*0.35)", "(monitor_h*0.45)" },
+})

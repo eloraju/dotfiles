@@ -10,6 +10,5 @@
     "~/.config/waybar/tray.json",
     "~/.config/waybar/hypr/window.json",
     "~/.config/waybar/hypr/workspaces.json",
-    "~/.config/waybar/custom.json",
   ],
 }

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+exec setsid uwsm-app -- ghostty --class="poptui.${1}" -e $1

@@ -6,8 +6,8 @@
 local terminal = "ghostty"
 local fileManager = "dolphin"
 local menu = "hyprlauncher"
-local bluetooth = "bluetui"
-local netowrk = "impala"
+local bluetooth = "poptui bluetui"
+local netowrk = "poptui impala"
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -51,8 +51,8 @@ hl.bind(Mod .. "O", hl.dsp.focus({ monitor = "+1" }))
 hl.bind(SMod .. "O", hl.dsp.window.move({ monitor = "+1" }))
 
 -- Applications
-hl.bind(SMod .. "W", hl.dsp.exec_cmd("impala")) --needs a floating terminal
-hl.bind(SMod .. "B", hl.dsp.exec_cmd("bluetui")) --needs a floating terminal
+hl.bind(SMod .. "W", hl.dsp.exec_cmd(netowrk)) --needs a floating terminal
+hl.bind(SMod .. "B", hl.dsp.exec_cmd(bluetooth)) --needs a floating terminal
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]

@@ -16,7 +16,6 @@
       "bluetooth",
       "network",
       "pulseaudio",
-      "cpu",
       "battery",
       "group/tray-expander"
     ]

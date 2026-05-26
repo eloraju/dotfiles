@@ -58,6 +58,7 @@
 
 tooltip {
   padding: 2px;
+  background-color: @background
 }
 
 #custom-update {

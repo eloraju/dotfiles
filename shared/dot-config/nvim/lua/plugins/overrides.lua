@@ -19,4 +19,16 @@ return {
       },
     },
   },
+  {
+    "nvim-mini/mini.pairs",
+    enabled = false,
+  },
+  {
+    "saghen/blink.cmp",
+    opts = {
+      sources = {
+        default = { "lsp", "buffer", "path" },
+      },
+    },
+  },
 }

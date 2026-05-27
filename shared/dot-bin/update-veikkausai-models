@@ -6,11 +6,14 @@ type ModelResponse = {
   data: {
     id: string;
     created: number;
+    owned_by: string;
+    object: string;
   }[];
 };
 
 type ModelConf = {
   name: string;
+  created?: number;
   limit: {
     context: number;
     output: number;
@@ -32,7 +35,7 @@ type OpencodeConf = {
   };
 };
 
-const modelBaseConf: Omit<ModelConf, "name" | "release_date"> = {
+const modelBaseConf: Omit<ModelConf, "name"> = {
   limit: {
     context: 200000,
     output: 32000,
@@ -46,9 +49,8 @@ const conf: OpencodeConf = JSON.parse(
   await Bun.file(opencodeConf.trim()).text(),
 );
 
-const { baseURL, apiKeyId: onepasswordId } = conf.provider.veikkaus.options;
-const apiKey =
-  await $`op read "op://Veikkaus/VeikkausAI API key/value"`.text();
+const { baseURL } = conf.provider.veikkaus.options;
+const apiKey = await $`op read "op://Veikkaus/VeikkausAI API key/value"`.text();
 
 const resp: ModelResponse = await (
   await fetch({
@@ -61,10 +63,28 @@ const resp: ModelResponse = await (
 
 const models: { [model: string]: ModelConf } = resp.data.reduce(
   (acc, model) => {
-    acc[model.id] = {
-      ...modelBaseConf,
-      name: model.id,
-    };
+    const cur = conf.provider.veikkaus.models[model.id];
+    if (cur && (cur.created ?? 0) < model.created) {
+      acc[model.id] = {
+        ...modelBaseConf,
+        name: model.id,
+        created: model.created,
+      };
+      console.log(`Model updated: "${model.id}" `);
+    } else if (!cur) {
+      acc[model.id] = {
+        ...modelBaseConf,
+        name: model.id,
+        created: model.created,
+      };
+      console.log(`Model added: "${model.id}" `);
+    } else {
+      acc[model.id] = {
+        ...modelBaseConf,
+        name: cur.name,
+        created: cur.created,
+      };
+    }
     return acc;
   },
   {} as { [model: string]: ModelConf },

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-SESSIONS_FILE="$HOME/.local/cache/tmux-sessions"
+SESSIONS_FILE="$XDG_CACHE_HOME/tmux-sessions"
 
 SESSIONS_TEMPLATE="# tmux-sessions cache
 # format: type;name;path;active;icon
 #
 # types:
-#   ssh    remote SSH session                     path = user@host
-#   repo   local repo project directory
-#   dir    plain local directory
+#   ssh     remote SSH session                     path = user@host
+#   repo    local repo project directory
+#   dir     plain local directory
 #
 # examples:
 # ssh;server1;user@server1.example.com;false;

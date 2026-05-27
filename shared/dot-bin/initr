@@ -6,23 +6,62 @@ declare -A flags
 templates["cargo"]="cargo init"
 templates["bun"]="bun init"
 templates["zig"]="zig init"
+templates["test"]="echo 'this should run ls  {$(ls)}'"
 
 usage() {
-  echo <<END
-Usage: initr <REPO-NAME> [options]"
+  cat <<END
+Usage: initr [options] <REPO-NAME>"
 
 Options
   -t, --template <TEMPLATE>   Initialize repo with given template from available template
+  -d, --root-dir <PATH>       Create the new repo to the given path [default: \$HOME/repos/]
 
 Templates
   cargo                       Rust project with Cargo
   bun                         TypeScript project with Bun
   zig                         Zig project
+
 END
 }
 
-# $1template
-[[ -z $1 ]] && echo "No repo name given" && usage && exit 1
-for var in "$@"; do
-  echo $var
+create_repo() {
+  echo "Creating new repo"
+  echo "Name: ${1}"
+  echo "Path: ${2}"
+}
+
+#for var in "$@"; do
+#done
+
+template=""
+repos_root=""
+while getopts "t:d:hb" opt; do
+  case "$opt" in
+  h)
+    usage
+    exit 0
+    ;;
+  b)
+    echo "bare repo"
+    exit 0
+    ;;
+  t)
+    template="${OPTARG}"
+    shift 2
+    ;;
+  d)
+    repos_root="${OPTARG}"
+    shift 2
+    ;;
+  *)
+    usage >&2
+    exit 3
+    ;;
+  esac
 done
+
+# $1 repo-name
+[[ -z $1 ]] && echo "Missing template" && usage >&2 && exit 1
+repo_name=$1
+
+[[ -d "$repo_name" ]] && echo "Repo '$repo_name' already exists" && exit 2

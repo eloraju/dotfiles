@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "nvim-tmux-navigation": {
+      "rev": "4898c98702954439233fdaf764c39636681e2861",
+      "src": "https://www.github.com/alexghergh/nvim-tmux-navigation"
+    }
+  }
+}

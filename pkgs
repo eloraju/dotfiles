@@ -4,6 +4,8 @@ eza
 flameshot
 fzf
 gum
+luarocks
+magick
 mise
 neovim
 nvm
@@ -14,4 +16,4 @@ tealdeer
 tmux
 usage
 yazi
-television
+televisio

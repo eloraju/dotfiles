@@ -1,0 +1,1 @@
+- [ ] take a look at nvim `:help write-compiler-plugin` --> different ways to utilize quickfix lists

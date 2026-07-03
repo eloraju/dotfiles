@@ -76,12 +76,12 @@ git_branch() {
 set_prefix() {
   local TMUX_PREFIX="C-a"
   if [[ -n $SSH_CONNECTION ]]; then
-    TMUX_PREFIX0="C-s"
+    TMUX_PREFIX="C-s"
   fi
 
-  tmux unbind-key "C-b"
-  tmux set -g prefix "$TMUX_PREFIX"
-  tmux bind-key "$TMUX_PREFIX" "send-prefix"
+  tmux unbind-key C-b
+  tmux set -g prefix $TMUX_PREFIX
+  tmux bind-key $TMUX_PREFIX send-prefix
 }
 
 "$@"

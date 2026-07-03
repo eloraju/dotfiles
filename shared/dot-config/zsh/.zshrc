@@ -76,13 +76,18 @@ eval "$(op completion zsh)"
 
 # Start tmux (only for interactive shells)
 if [ -z "$TMUX" ] && [[ -o interactive ]]; then
+  SESSION_CWD=${HOME}
+
   if GIT_PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null); then
     SESSION_NAME="$(basename \"$GIT_PROJECT_ROOT\" | sed 's/[^[:alnum:]-]//g')"
+  elif [ -n "$SSH_CONNECTION" ]; then
+    SESSION_NAME="${USER}@${HOST}"
+    SESSION_CWD=$(pwd)
   else
     SESSION_NAME="main"
   fi
 
-  tmux new-session -A -s "$SESSION_NAME" -c $HOME
+  tmux new-session -A -s "$SESSION_NAME" -c $SESSION_CWD
 fi
 
 # compinit after everything else is setup

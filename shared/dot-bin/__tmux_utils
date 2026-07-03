@@ -4,67 +4,84 @@ list_repos() {
   fd --hidden --type d --max-depth 5 --prune --glob .git $HOME/repos/ --exec dirname '{}'
 }
 
-new_session() {
-  result=$(tmux list-sessions -F "#S" | fzf --tmux)
+session_exists() {
+  tmux has-session -t "$1" 2>/dev/null
 }
 
-switch_or_create() {
-  session="${1:?No session provided. Usage: tmux_switch_or_create <session-name> <cwd>}"
+create_session() {
+  tmux new-session -ds ${1} -c ${2}
+}
 
-  if tmux has-session -t "$session" 2>/dev/null; then
-    tmux detach-client -s "$session" 2>/dev/null
-  else
-    start_dir="${2:?No path provided. Usage: tmux_switch_or_create <session-name> <cwd>}"
-    tmux new-session -ds "$session" -c $start_dir
-    tmux split -t "${session}:2" -hb -c $start_dir
-    tmux send-keys -t "${session}:1" "v ." Enter
+attach_to() {
+  if session_exists $1; then
+    tmux detach-client -s "$1"
   fi
 
   if [[ -n "$TMUX" ]]; then
-    tmux switch-client -t "$session"
+    tmux switch-client -t "$1"
+  else
+    tmux attach -t "$1"
   fi
 }
 
+send_command_to_session() {
+  tmux send-keys -t"${1}:1" "${2}" Enter
+}
+
+switch_or_create() {
+  local session="${1:?No session provided}"
+  local start_dir="${2:-'#{pane_current_path}'}"
+
+  if ! session_exists $session; then
+    create_session $session $start_dir
+    tmux split -t "${session}:1" -hb -c $start_dir
+    send_command_to_session $session "${3:-v .}"
+  fi
+
+  attach_to $session
+}
+
+ssh_session() {
+  local ssh_url=${1:?"no user@host spesified"}
+  create_session $ssh_url $HOME
+  send_command_to_session $ssh_url "ssh $ssh_url"
+  switch_or_create $ssh_url
+}
+
+run_in_new_session() {
+  local cmd=$(echo "$@" | cut -d " " -f1)
+  local session="tmp_${cmd}_$(date +%s)"
+  create_session $session '#{pane_current_path}'
+  send_command_to_session $session "${@}"
+  tmux switch-client -t $session
+}
+
 new_pane() {
-  pane_count=$(tmux display-message -p "#{window_panes}")
+  local pane_count=$(tmux display-message -p "#{window_panes}")
   tmux split-window -v -c "#{pane_current_path}" -t "$pane_count"
   tmux select-layout -E
 }
 
 git_branch() {
-  pane_path=$(tmux display-message -p "#{pane_current_path}")
+  local pane_path=$(tmux display-message -p "#{pane_current_path}")
 
   if git -C "$pane_path" rev-parse --git-dir &>/dev/null; then
-    branch=$(git -C "$pane_path" rev-parse --abbrev-ref HEAD)
+    local branch=$(git -C "$pane_path" rev-parse --abbrev-ref HEAD)
     tmux set -g @git_info " $branch"
   else
     tmux set -g @git_info ""
   fi
 }
 
-init_repo() {
-  tmux display-menu \
-    "New repo" "n" "run-shell '__tmux_utils select_repo_path create_repo'" \
-    "Clone a repo" "c" "run-shell '__tmux_utils select_repo_path clone_repo'"
-}
+set_prefix() {
+  local TMUX_PREFIX="C-a"
+  if [[ -n $SSH_CONNECTION ]]; then
+    TMUX_PREFIX0="C-s"
+  fi
 
-select_repo_path() {
-  tmux display-menu \
-    "Own" "o" "run-shell '__tmux_utils $1 $HOME/repos/o'" \
-    "Client" "c" "run-shell '__tmux_utils $1 $HOME/repos/clients'" \
-    "WD" "w" "run-shell '__tmux_utils $1 $HOME/repos/wd'"
-}
-
-clone_repo() {
-  #git clone $1 -o $2
-  echo should clone repo now to $1
-}
-
-create_repo() {
-  fzf --print-query --no-info --tmux
-  echo should create new dir now to $1
-  #mkdir -p $1/$2
-  # Switch to new session
+  tmux unbind-key "C-b"
+  tmux set -g prefix "$TMUX_PREFIX"
+  tmux bind-key "$TMUX_PREFIX" "send-prefix"
 }
 
 "$@"

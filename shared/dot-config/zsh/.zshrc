@@ -58,7 +58,11 @@ eval "$(zoxide init zsh --cmd cd)"
 
 # list files on directory change
 function cd() {
-  __zoxide_z "$@" && ll && __tmux_utils git_branch
+  __zoxide_z "$@" && ll 
+
+  if [ -n $TMUX ]; then
+    __tmux_utils git_branch
+  fi
 }
 
 # helper to reaload zsh config

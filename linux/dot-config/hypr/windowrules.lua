@@ -28,13 +28,14 @@ hl.window_rule({
 })
 
 -- Hyprland-run windowrule
-hl.window_rule({
-	name = "move-hyprland-run",
-	match = { class = "hyprland-run" },
-
-	move = "20 monitor_h-120",
-	float = true,
-})
+-- Not used with noctalia
+-- hl.window_rule({
+-- 	name = "move-hyprland-run",
+-- 	match = { class = "hyprland-run" },
+--
+-- 	move = "20 monitor_h-120",
+-- 	float = true,
+-- })
 
 -- Float and center popup TUI applications
 hl.window_rule({
@@ -43,4 +44,11 @@ hl.window_rule({
 	float = true,
 	center = true,
 	size = { "(monitor_w*0.35)", "(monitor_h*0.45)" },
+})
+
+hl.window_rule({
+	name = "noctalia-windows",
+	match = { class = "dev.noctalia.Noctalia" },
+	float = true,
+	size = { 1080, 920 },
 })

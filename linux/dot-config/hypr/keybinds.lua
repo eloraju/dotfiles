@@ -3,9 +3,13 @@
 ---------------------
 
 -- Set programs that you use
+
+local noctalia_cmd = "noctalia msg "
+
 local terminal = "ghostty"
 local fileManager = "dolphin"
-local menu = "hyprlauncher"
+--local menu = "hyprlauncher"
+local menu = noctalia_cmd .. "panel-toggle launcher"
 local bluetooth = "poptui bluetui"
 local netowrk = "poptui impala"
 
@@ -25,7 +29,7 @@ local quitHyprland = "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown ||
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(Mod .. "Return", hl.dsp.exec_cmd(terminal))
 hl.bind(SMod .. "Q", hl.dsp.window.close())
-hl.bind(Mod .. "M", hl.dsp.exec_cmd(quitHyprland))
+--hl.bind(Mod .. "M", hl.dsp.exec_cmd(quitHyprland))
 hl.bind(CSMod .. "Q", hl.dsp.exec_cmd(quitHyprland))
 hl.bind(CMod .. "L", hl.dsp.exec_cmd("systemctl suspend"))
 hl.bind(Mod .. "E", hl.dsp.exec_cmd(fileManager))
@@ -77,26 +81,40 @@ hl.bind(Mod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
 	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+	-- hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+	hl.dsp.exec_cmd(noctalia_cmd .. "volume-up"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+	--hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+	hl.dsp.exec_cmd(noctalia_cmd .. "volume-down"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioMute",
-	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+	-- hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+	hl.dsp.exec_cmd(noctalia_cmd .. "volume-mute"),
 	{ locked = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioMicMute",
-	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+	-- hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+	hl.dsp.exec_cmd(noctalia_cmd .. "mic mute"),
 	{ locked = true, repeating = true }
 )
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
+hl.bind(
+	"XF86MonBrightnessUp",
+	-- hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),
+	hl.dsp.exec_cmd(noctalia_cmd .. "brightness-up"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86MonBrightnessDown",
+	-- hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),
+	hl.dsp.exec_cmd(noctalia_cmd .. "brightness-down"),
+	{ locked = true, repeating = true }
+)
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })

@@ -33,3 +33,6 @@ hl.config({
 		disable_hyprland_logo = false, -- If true disables the random hyprland logo / anime girl background. :(
 	},
 })
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()

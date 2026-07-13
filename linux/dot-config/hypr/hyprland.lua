@@ -18,6 +18,11 @@ require("windowrules")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("PATH", "/home/juuso/.bin:" .. (os.getenv("PATH") or ""))
+
+-- ghostty dead keys "fix" https://github.com/ghostty-org/ghostty/discussions/8899
+hl.env("GTK_IM_MODULE", "ibus")
+hl.env("QT_IM_MODULE", "ibus")
+hl.env("XMODIFIERS", "@im=ibus")
 ----------------
 ----  MISC  ----
 ----------------

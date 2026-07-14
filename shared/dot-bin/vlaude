@@ -3,9 +3,6 @@
 onepasswordId=$(jq -r '.provider.veikkaus.options.apiKeyId' $HOME/.config/opencode/opencode.json)
 key=$(op item get ${onepasswordId} --fields "key" --reveal)
 
-export CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS='1'
-export DISABLE_TELEMETRY=1
-export ANTHROPIC_BASE_URL="https://litellm.veikkaus.ai/"
 export ANTHROPIC_AUTH_TOKEN="${key}"
 
 claude

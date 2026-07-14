@@ -9,12 +9,6 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.local/cache
 export XDG_DATA_HOME=$HOME/.local/share
 
-# Rust packages
-export CARGO_INSTALL_ROOT=$XDG_DATA_HOME/cargo
-CARGO_BIN=$CARGO_INSTALL_ROOT/bin
-RUSTPUP_BIN=$HOME/.cargo/bin
-RUST_BINS=$CARGO_BIN:$RUSTPUP_BIN
-
 # GnuPG
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
 
@@ -38,7 +32,7 @@ export MANPAGER="nvim +Man!"
 export NVM_DIR="$HOME/.nvm"
 
 # clean up path... it gets crowded when reloading configs
-export PATH=$(echo "$LOCAL_BINS:$RUST_BINS:$PATH" | tr ':' '\n' | sort | uniq | tr '\n' ':')
+export PATH=$(echo "$LOCAL_BINS:$PATH" | tr ':' '\n' | sort | uniq | tr '\n' ':')
 
 export COLORSCHEME="tokyo-night-storm"
 

@@ -30,7 +30,7 @@ send_command_to_session() {
 
 switch_or_create() {
   local session="${1:?No session provided}"
-  local start_dir="${2:-'#{pane_current_path}'}"
+  local start_dir="${2:-$(pwd)}"
 
   if ! session_exists $session; then
     create_session $session $start_dir

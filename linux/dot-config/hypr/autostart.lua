@@ -1,6 +1,7 @@
 hl.on("hyprland.start", function()
 	hl.exec_cmd("1password")
 	hl.exec_cmd("steam")
+	-- hl.exec_cmd("netbird")
 
 	hl.exec_cmd("noctalia")
 	-- hl.exec_cmd("waybar")

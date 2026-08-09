@@ -7,7 +7,7 @@
 local noctalia_cmd = "noctalia msg "
 
 local terminal = "ghostty"
-local fileManager = "dolphin"
+local fileManager = "nautilus"
 --local menu = "hyprlauncher"
 local menu = noctalia_cmd .. "panel-toggle launcher"
 local bluetooth = "poptui bluetui"
@@ -29,13 +29,12 @@ local quitHyprland = "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown ||
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(Mod .. "Return", hl.dsp.exec_cmd(terminal))
 hl.bind(SMod .. "Q", hl.dsp.window.close())
---hl.bind(Mod .. "M", hl.dsp.exec_cmd(quitHyprland))
 hl.bind(CSMod .. "Q", hl.dsp.exec_cmd(quitHyprland))
 hl.bind(CMod .. "L", hl.dsp.exec_cmd("systemctl suspend"))
-hl.bind(Mod .. "E", hl.dsp.exec_cmd(fileManager))
 hl.bind(Mod .. "V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(SMod .. "Return", hl.dsp.exec_cmd(menu))
 hl.bind(Mod .. "P", hl.dsp.window.pseudo())
+hl.bind(Mod .. "M", hl.dsp.exec_cmd(quitHyprland))
 
 -- Move focus with mainMod + hjkl
 hl.bind(Mod .. "H", hl.dsp.focus({ direction = "left" }))
